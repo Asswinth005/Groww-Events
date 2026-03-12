@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height, viewport-fit=cover">
+    <title>GROWW TEAM · Page Not Found</title>
+    <link rel="icon" type="asset/jpeg" href="assets/growwteam_logo.jpg">
+    <!-- Tailwind + same config as homepage -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#6ca3bd',
+                        'primary-light': '#8cb9d0',
+                        'primary-dark': '#4f7e94',
+                        'accent-beige': '#E1D0B3',
+                        'bg-warm': '#FFFFFF',
+                        'neutral-dark': '#2A2A2A',
+                        'neutral-light': '#F5F5F5',
+                        'dark-bg': '#0a0a0a',
+                        'dark-card': '#1e1e1e',
+                        'dark-surface': '#2a2a2a',
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'system-ui', 'sans-serif'],
+                        display: ['Playfair Display', 'serif'],
+                        alt: ['Open Sans', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.4s ease-out',
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s ease-in-out infinite'
+                    },
+                    keyframes: {
+                        fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
+                        float: { '0%,100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-12px)' } }
+                    },
+                    backgroundImage: {
+                        'pattern-dots': "radial-gradient(circle at 1px 1px, rgba(108,163,189,0.1) 1px, transparent 0)",
+                        'hero-404': "radial-gradient(circle at 20% 30%, rgba(108,163,189,0.05) 0%, transparent 40%), radial-gradient(circle at 80% 70%, rgba(225,208,179,0.05) 0%, transparent 45%)"
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Fonts + Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800;900&family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ----- FULL PAGE LAYOUT - NO CARD, LIKE A REAL PAGE ----- */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            background-color: #FFFFFF;
+            color: #2A2A2A;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .dark body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+        }
+        
+        /* toggle buttons - consistent with brand */
+        .toggle-btn {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #F5F5F5;
+            color: #6ca3bd;
+            transition: all 0.2s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+        
+        .dark .toggle-btn {
+            background: #2a2a2a;
+            color: #8cb9d0;
+        }
+        
+        .toggle-btn:hover {
+            background: #E1D0B3;
+            color: #6ca3bd;
+        }
+        
+        .dark .toggle-btn:hover {
+            background: #3a3a3a;
+            color: #8cb9d0;
+        }
+        
+        .toggle-btn.active {
+            background: #6ca3bd;
+            color: white;
+        }
+        
+        /* primary button */
+        .primary-btn {
+            background: #6ca3bd;
+            color: white;
+            font-weight: 600;
+            padding: 0.9rem 2.5rem;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+        
+        .primary-btn:hover {
+            background: #4f7e94;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px rgba(108,163,189,0.35);
+        }
+        
+        /* outline button style */
+        .outline-btn {
+            background: transparent;
+            border: 1.5px solid #6ca3bd;
+            color: #6ca3bd;
+            font-weight: 600;
+            padding: 0.9rem 2.5rem;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            cursor: pointer;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+        
+        .dark .outline-btn {
+            border-color: #8cb9d0;
+            color: #8cb9d0;
+        }
+        
+        .outline-btn:hover {
+            background: #6ca3bd;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(108,163,189,0.25);
+        }
+        
+        /* logo spin */
+        .logo-icon {
+            transition: transform 0.3s ease;
+        }
+        
+        a:hover .logo-icon {
+            transform: rotate(12deg);
+        }
+        
+        /* 404 number style - large and bold */
+        .error-number {
+            font-size: 8rem;
+            font-weight: 800;
+            font-family: 'Playfair Display', serif;
+            line-height: 1;
+            color: #6ca3bd;
+            text-shadow: 0 12px 28px rgba(108,163,189,0.25);
+            letter-spacing: -0.02em;
+        }
+        
+        .dark .error-number {
+            color: #8cb9d0;
+            text-shadow: 0 12px 28px rgba(108,163,189,0.35);
+        }
+        
+        /* compass animation */
+        .compass-large {
+            animation: float 7s ease-in-out infinite;
+            color: #6ca3bd;
+        }
+        
+        .dark .compass-large {
+            color: #8cb9d0;
+        }
+        
+        /* RTL adjustments */
+        [dir="rtl"] .fa-arrow-right {
+            transform: scaleX(-1);
+        }
+        
+        [dir="rtl"] .space-x-3 > :not([hidden]) ~ :not([hidden]) {
+            --tw-space-x-reverse: 1;
+        }
+        
+        /* hidden utility */
+        .hidden {
+            display: none;
+        }
+        
+        /* custom container */
+        .page-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            width: 100%;
+        }
+        
+        /* background pattern */
+        .bg-pattern-404 {
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(108,163,189,0.04) 0%, transparent 35%),
+                radial-gradient(circle at 90% 65%, rgba(225,208,179,0.04) 0%, transparent 40%),
+                radial-gradient(circle at 30% 80%, rgba(108,163,189,0.03) 0%, transparent 30%);
+        }
+        
+        .dark .bg-pattern-404 {
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(108,163,189,0.08) 0%, transparent 35%),
+                radial-gradient(circle at 90% 65%, rgba(225,208,179,0.08) 0%, transparent 40%),
+                radial-gradient(circle at 30% 80%, rgba(108,163,189,0.06) 0%, transparent 30%);
+        }
+        
+        /* beige badge */
+        .beige-badge {
+            background: rgba(225,208,179,0.2);
+            color: #6ca3bd;
+        }
+        .dark .beige-badge {
+            background: rgba(225,208,179,0.15);
+            color: #8cb9d0;
+        }
+    </style>
+</head>
+
+<body class="bg-pattern-404">
+
+    <!-- ===== SIMPLE NAVIGATION BAR ===== -->
+    <nav class="flex-shrink-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border-b border-neutral-light dark:border-gray-800">
+        <div class="page-container">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo - redirects to index.html -->
+                <a href="index.html" class="flex items-center space-x-3 rtl:space-x-reverse group">
+                    <div class="logo-icon w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+                        <i class="fas fa-users text-white text-lg"></i>
+                    </div>
+                    <div>
+                        <span class="text-2xl font-display font-bold tracking-tight text-neutral-dark dark:text-white">GROWW</span>
+                        <span class="text-2xl font-display font-bold tracking-tight text-primary">TEAM</span>
+                    </div>
+                </a>
+                
+                <!-- Theme & RTL toggles -->
+                <div class="flex items-center gap-2">
+                    <button id="theme-toggle" class="toggle-btn" title="Dark / Light">
+                        <i class="fas fa-moon"></i>
+                        <i class="fas fa-sun hidden"></i>
+                    </button>
+                    <button id="rtl-toggle" class="toggle-btn" title="RTL / LTR">
+                        ⇄
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===== MAIN 404 CONTENT ===== -->
+    <main class="flex-1 flex items-center justify-center py-12 md:py-16">
+        <div class="page-container">
+            <div class="max-w-4xl mx-auto">
+                
+                <!-- 404 Visual Section -->
+                <div class="text-center animate-fade-in">
+                    
+                    <!-- Large 404 with Compass -->
+                    <div class="flex items-center justify-center gap-1 md:gap-4 mb-6">
+                        <span class="error-number text-7xl md:text-8xl lg:text-9xl">4</span>
+                        <div class="relative mx-1 md:mx-2">
+                            <i class="fas fa-compass text-7xl md:text-8xl lg:text-9xl compass-large text-primary/90 dark:text-primary-light/90"></i>
+                            <div class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-12 h-12 bg-primary/5 dark:bg-primary-light/10 rounded-full blur-xl"></div>
+                        </div>
+                        <span class="error-number text-7xl md:text-8xl lg:text-9xl">4</span>
+                    </div>
+                    
+                    <!-- Error Badge -->
+                    <div class="inline-flex items-center px-4 py-2 beige-badge rounded-full mb-6">
+                        <i class="fas fa-map-signs text-primary mr-2 text-sm"></i>
+                        <span class="text-xs font-semibold uppercase tracking-wider text-primary dark:text-primary-light">Error 404 · Lost Path</span>
+                    </div>
+                    
+                    <!-- Main Heading -->
+                    <h1 class="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-neutral-dark dark:text-white mb-4">
+                        Team Not Found
+                    </h1>
+                    
+                    <!-- Description -->
+                    <p class="text-neutral-dark/70 dark:text-gray-300 text-base md:text-lg max-w-2xl mx-auto mb-8 leading-relaxed">
+                        The team building event you're looking for doesn't exist in our schedule. 
+                        Maybe it was moved, renamed, or never existed. 
+                        Let's get you back on track.
+                    </p>
+                    
+                    <!-- Action Buttons -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
+                        <a href="index.html" class="primary-btn w-full sm:w-auto px-8">
+                            <i class="fas fa-home mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            Back to Home
+                        </a>
+                        <a href="#" class="outline-btn w-full sm:w-auto px-8 group">
+                            <i class="fas fa-search mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            Browse Events
+                            <i class="fas fa-arrow-right ml-2 rtl:mr-2 rtl:ml-0 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition"></i>
+                        </a>
+                    </div>
+                    
+                    <!-- Helpful Links Section -->
+                    <div class="relative py-8">
+                        <div class="absolute inset-0 flex items-center">
+                            <div class="w-full border-t border-neutral-light/60 dark:border-gray-800/60"></div>
+                        </div>
+                        <div class="relative flex justify-center">
+                            <span class="bg-white dark:bg-dark-bg px-6 text-sm text-neutral-dark/50 dark:text-gray-500">
+                                popular activities
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <!-- Popular Activities Grid -->
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
+                        <a href="#" class="group p-4 rounded-2xl hover:bg-primary/5 dark:hover:bg-primary/10 transition-all duration-300">
+                            <div class="w-12 h-12 bg-primary/10 dark:bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-2 group-hover:scale-110 transition-transform">
+                                <i class="fas fa-puzzle-piece text-primary"></i>
+                            </div>
+                            <span class="text-xs font-medium text-neutral-dark dark:text-gray-300">Escape Room</span>
+                        </a>
+                        <a href="#" class="group p-4 rounded-2xl hover:bg-primary/5 dark:hover:bg-primary/10 transition-all duration-300">
+                            <div class="w-12 h-12 bg-primary/10 dark:bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-2 group-hover:scale-110 transition-transform">
+                                <i class="fas fa-chess-board text-primary"></i>
+                            </div>
+                            <span class="text-xs font-medium text-neutral-dark dark:text-gray-300">Scavenger Hunt</span>
+                        </a>
+                        <a href="#" class="group p-4 rounded-2xl hover:bg-primary/5 dark:hover:bg-primary/10 transition-all duration-300">
+                            <div class="w-12 h-12 bg-primary/10 dark:bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-2 group-hover:scale-110 transition-transform">
+                                <i class="fas fa-utensils text-primary"></i>
+                            </div>
+                            <span class="text-xs font-medium text-neutral-dark dark:text-gray-300">Cooking Class</span>
+                        </a>
+                        <a href="#" class="group p-4 rounded-2xl hover:bg-primary/5 dark:hover:bg-primary/10 transition-all duration-300">
+                            <div class="w-12 h-12 bg-primary/10 dark:bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-2 group-hover:scale-110 transition-transform">
+                                <i class="fas fa-question-circle text-primary"></i>
+                            </div>
+                            <span class="text-xs font-medium text-neutral-dark dark:text-gray-300">Trivia</span>
+                        </a>
+                    </div>
+                    
+                    <!-- Back to Home Link (mobile friendly) -->
+                    <div class="mt-10 md:hidden">
+                        <a href="index.html" class="text-primary hover:text-primary-dark font-medium text-sm inline-flex items-center">
+                            <i class="fas fa-arrow-left mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            Return to homepage
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="flex-shrink-0 py-6 bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm border-t border-neutral-light dark:border-gray-800">
+        <div class="page-container">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="flex items-center space-x-4 text-xs text-neutral-dark/50 dark:text-gray-500">
+                    <span>© 2026 GROWW TEAM</span>
+                    <span>·</span>
+                    <a href="#" class="hover:text-primary transition">Privacy</a>
+                    <span>·</span>
+                    <a href="#" class="hover:text-primary transition">Terms</a>
+                </div>
+                <div class="flex items-center space-x-4 text-xs">
+                    <span class="text-neutral-dark/40 dark:text-gray-600">Need help?</span>
+                    <a href="contact.html" class="text-primary hover:text-primary-dark font-medium">Contact support</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== DARK / LIGHT + RTL TOGGLE SCRIPT ===== -->
+    <script>
+        (function() {
+            // ---------- THEME ----------
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeIconMoon = themeToggle?.querySelector('.fa-moon');
+            const themeIconSun = themeToggle?.querySelector('.fa-sun');
+
+            function setTheme(isDark) {
+                if (isDark) {
+                    document.documentElement.classList.add('dark');
+                    if (themeIconMoon) themeIconMoon.classList.add('hidden');
+                    if (themeIconSun) themeIconSun.classList.remove('hidden');
+                    themeToggle?.classList.add('active');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    if (themeIconMoon) themeIconMoon.classList.remove('hidden');
+                    if (themeIconSun) themeIconSun.classList.add('hidden');
+                    themeToggle?.classList.remove('active');
+                    localStorage.setItem('theme', 'light');
+                }
+            }
+            
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                setTheme(true);
+            } else if (savedTheme === 'light') {
+                setTheme(false);
+            } else {
+                // Default to light
+                setTheme(false);
+            }
+
+            if (themeToggle) {
+                themeToggle.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    setTheme(!document.documentElement.classList.contains('dark'));
+                });
+            }
+
+            // ---------- RTL ----------
+            const rtlBtn = document.getElementById('rtl-toggle');
+            
+            function setRTL(isRTL) {
+                if (isRTL) {
+                    document.documentElement.dir = 'rtl';
+                    document.documentElement.lang = 'ar';
+                    rtlBtn?.classList.add('active');
+                    localStorage.setItem('dir', 'rtl');
+                } else {
+                    document.documentElement.dir = 'ltr';
+                    document.documentElement.lang = 'en';
+                    rtlBtn?.classList.remove('active');
+                    localStorage.setItem('dir', 'ltr');
+                }
+            }
+            
+            const savedDir = localStorage.getItem('dir');
+            if (savedDir === 'rtl') {
+                setRTL(true);
+            } else {
+                setRTL(false);
+            }
+
+            if (rtlBtn) {
+                rtlBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    setRTL(document.documentElement.dir !== 'rtl');
+                });
+            }
+
+            // ---------- DEMO ALERTS (only for placeholder links) ----------
+            document.querySelectorAll('a[href="#"]').forEach(link => {
+                link.addEventListener('click', (e) => { 
+                    e.preventDefault(); 
+                    alert('✨ This would show all team building events (demo)'); 
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
