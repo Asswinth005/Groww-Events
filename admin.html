@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GROWW TEAM · admin dashboard</title>
+    <title>GROWW TEM · admin dashboard</title>
     <link rel="icon" type="asset/jpeg" href="/assest/growwpark_logo.jpg">
 
     <!-- Tailwind CSS -->
@@ -201,18 +201,38 @@
         input:checked + .toggle-slider:before { transform: translateX(24px); }
         .dark input:checked + .toggle-slider { background-color: #8cb9d0; }
         
-        /* chart container */
-        .chart-container { position: relative; height: 260px; width:100%; }
+        /* chart container - improved mobile responsiveness */
+        .chart-container { 
+            position: relative; 
+            height: 200px; 
+            width: 100%;
+            min-height: 180px;
+            max-height: 260px;
+        }
         
         /* RTL tweaks */
         [dir="rtl"] .sidebar-item i { margin-left: 12px; margin-right: 0; }
         [dir="rtl"] .ml-2 { margin-left: 0; margin-right: 0.5rem; }
         [dir="rtl"] .mr-2 { margin-right: 0; margin-left: 0.5rem; }
+
+        /* better mobile spacing */
+        @media (max-width: 640px) {
+            .dashboard-card {
+                padding: 1.25rem;
+            }
+            .stat-card {
+                padding: 1rem;
+            }
+            .chart-container {
+                height: 180px;
+                min-height: 160px;
+            }
+        }
     </style>
 </head>
 <body class="bg-white dark:bg-dark-bg p-4 sm:p-6 md:p-8">
 
-    <!-- ========== HEADER ========== (GROWW TEAM theme) -->
+    <!-- ========== HEADER ========== (GROWW TEM theme) -->
     <div class="flex justify-between items-center mb-8">
         <a href="index.html" class="flex items-center space-x-2 group">
             <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center transform group-hover:scale-105 transition-transform">
@@ -220,7 +240,7 @@
             </div>
             <div class="font-display text-2xl font-bold tracking-tight">
                 <span class="text-neutral-dark dark:text-white">GROWW</span>
-                <span class="text-primary dark:text-primary-light ml-1">TEAM</span>
+                <span class="text-primary dark:text-primary-light ml-1">TEM</span>
             </div>
         </a>
         <div class="flex items-center gap-3">
@@ -277,49 +297,63 @@
                         <div class="stat-card"><div class="flex justify-between"><div><p class="text-sm text-neutral-dark/60">participants</p><p class="text-3xl font-bold dark:text-white">342</p><p class="text-xs text-green-600 mt-2">↑ 12%</p></div><i class="fas fa-user text-primary text-2xl"></i></div></div>
                         <div class="stat-card"><div class="flex justify-between"><div><p class="text-sm text-neutral-dark/60">revenue (MTD)</p><p class="text-3xl font-bold dark:text-white">$48.2k</p><p class="text-xs text-green-600 mt-2">↑ 19%</p></div><i class="fas fa-dollar-sign text-primary text-2xl"></i></div></div>
                     </div>
-                    <!-- mini charts -->
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div class="bg-neutral-light/30 dark:bg-gray-800/30 p-5 rounded-2xl"><h3 class="font-bold mb-3">weekly bookings</h3><div class="chart-container"><canvas id="bookingsChart"></canvas></div></div>
-                        <div class="bg-neutral-light/30 dark:bg-gray-800/30 p-5 rounded-2xl"><h3 class="font-bold mb-3">activity types</h3><div class="chart-container"><canvas id="activitiesChart"></canvas></div></div>
+                    
+                    <!-- mini charts - FIXED MOBILE ALIGNMENT -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-neutral-light/30 dark:bg-gray-800/30 p-4 sm:p-5 rounded-2xl">
+                            <h3 class="font-bold mb-3 text-sm sm:text-base">weekly bookings</h3>
+                            <div class="chart-container" style="height: 200px; min-height: 200px;">
+                                <canvas id="bookingsChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="bg-neutral-light/30 dark:bg-gray-800/30 p-4 sm:p-5 rounded-2xl">
+                            <h3 class="font-bold mb-3 text-sm sm:text-base">activity types</h3>
+                            <div class="chart-container" style="height: 200px; min-height: 200px;">
+                                <canvas id="activitiesChart"></canvas>
+                            </div>
+                        </div>
                     </div>
-                  <!-- recent activity -->
-<div class="mt-8">
-    <h3 class="font-bold text-lg mb-4 dark:text-white">recent activity</h3>
-    <div class="space-y-3">
-        <div class="flex items-center justify-between p-4 bg-neutral-light/30 dark:bg-gray-800 rounded-xl">
-            <div class="flex items-center gap-3">
-                <i class="fas fa-calendar-check text-primary"></i>
-                <div>
-                    <p class="font-semibold dark:text-white">new booking #TB-432</p>
-                    <p class="text-xs text-neutral-dark/70 dark:text-gray-300">TechCorp · 15 participants · 10 min ago</p>
+                    
+                    <!-- recent activity -->
+                    <div class="mt-8">
+                        <h3 class="font-bold text-lg mb-4 dark:text-white">recent activity</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between p-4 bg-neutral-light/30 dark:bg-gray-800 rounded-xl">
+                                <div class="flex items-center gap-3">
+                                    <i class="fas fa-calendar-check text-primary"></i>
+                                    <div>
+                                        <p class="font-semibold dark:text-white">new booking #TB-432</p>
+                                        <p class="text-xs text-neutral-dark/70 dark:text-gray-300">TechCorp · 15 participants · 10 min ago</p>
+                                    </div>
+                                </div>
+                                <span class="text-primary dark:text-primary-light text-sm hover:underline cursor-pointer">view</span>
+                            </div>
+                            
+                            <div class="flex items-center justify-between p-4 bg-neutral-light/30 dark:bg-gray-800 rounded-xl">
+                                <div class="flex items-center gap-3">
+                                    <i class="fas fa-user-plus text-primary"></i>
+                                    <div>
+                                        <p class="font-semibold dark:text-white">new team registered</p>
+                                        <p class="text-xs text-neutral-dark/70 dark:text-gray-300">InnovateLabs · 2h ago</p>
+                                    </div>
+                                </div>
+                                <span class="text-primary dark:text-primary-light text-sm hover:underline cursor-pointer">view</span>
+                            </div>
+                            
+                            <div class="flex items-center justify-between p-4 bg-neutral-light/30 dark:bg-gray-800 rounded-xl">
+                                <div class="flex items-center gap-3">
+                                    <i class="fas fa-trophy text-primary"></i>
+                                    <div>
+                                        <p class="font-semibold dark:text-white">event completed</p>
+                                        <p class="text-xs text-neutral-dark/70 dark:text-gray-300">Scavenger Hunt · 5h ago</p>
+                                    </div>
+                                </div>
+                                <span class="text-primary dark:text-primary-light text-sm hover:underline cursor-pointer">view</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <span class="text-primary dark:text-primary-light text-sm hover:underline cursor-pointer">view</span>
-        </div>
-        
-        <div class="flex items-center justify-between p-4 bg-neutral-light/30 dark:bg-gray-800 rounded-xl">
-            <div class="flex items-center gap-3">
-                <i class="fas fa-user-plus text-primary"></i>
-                <div>
-                    <p class="font-semibold dark:text-white">new team registered</p>
-                    <p class="text-xs text-neutral-dark/70 dark:text-gray-300">InnovateLabs · 2h ago</p>
-                </div>
-            </div>
-            <span class="text-primary dark:text-primary-light text-sm hover:underline cursor-pointer">view</span>
-        </div>
-        
-        <div class="flex items-center justify-between p-4 bg-neutral-light/30 dark:bg-gray-800 rounded-xl">
-            <div class="flex items-center gap-3">
-                <i class="fas fa-trophy text-primary"></i>
-                <div>
-                    <p class="font-semibold dark:text-white">event completed</p>
-                    <p class="text-xs text-neutral-dark/70 dark:text-gray-300">Scavenger Hunt · 5h ago</p>
-                </div>
-            </div>
-            <span class="text-primary dark:text-primary-light text-sm hover:underline cursor-pointer">view</span>
-        </div>
-    </div>
-</div>
 
             <!-- 2. TEAMS MANAGEMENT -->
             <div id="teams-section" class="dashboard-section hidden">
@@ -355,19 +389,61 @@
                 </div>
             </div>
 
-            <!-- 4. BOOKINGS -->
-            <div id="bookings-section" class="dashboard-section hidden">
-                <div class="dashboard-card">
-                    <h2 class="text-2xl font-display font-bold mb-6 flex items-center"><i class="fas fa-shopping-cart text-primary mr-3 text-2xl"></i>bookings</h2>
-                    <div class="flex gap-2 mb-4"><button class="px-5 py-2 rounded-full bg-primary text-white">all</button><button class="px-5 py-2 rounded-full border">confirmed</button><button class="px-5 py-2 rounded-full border">pending</button><button class="px-5 py-2 rounded-full border">completed</button></div>
-                    <table class="w-full"><thead class="table-header"><tr><th class="p-3 text-left">ID</th><th class="p-3 text-left">team</th><th class="p-3 text-left hidden sm:table-cell">event</th><th class="p-3 text-left">amount</th><th class="p-3 text-left">status</th></tr></thead>
-                    <tbody>
-                        <tr class="table-row"><td class="p-3">#TB-102</td><td class="p-3">TechCorp</td><td class="p-3 hidden sm:table-cell">Escape Room</td><td class="p-3">$450</td><td class="p-3"><span class="status-badge status-active">confirmed</span></td></tr>
-                        <tr class="table-row"><td class="p-3">#TB-109</td><td class="p-3">InnovateLabs</td><td class="p-3 hidden sm:table-cell">Scavenger Hunt</td><td class="p-3">$399</td><td class="p-3"><span class="status-badge status-active">confirmed</span></td></tr>
-                        <tr class="table-row"><td class="p-3">#TB-115</td><td class="p-3">CreativeStudio</td><td class="p-3 hidden sm:table-cell">Cooking Class</td><td class="p-3">$525</td><td class="p-3"><span class="status-badge status-pending">pending</span></td></tr>
-                    </tbody></table>
-                </div>
-            </div>
+          <!-- 4. BOOKINGS - FIXED MOBILE ALIGNMENT -->
+<div id="bookings-section" class="dashboard-section hidden">
+    <div class="dashboard-card">
+        <h2 class="text-2xl font-display font-bold mb-6 flex items-center"><i class="fas fa-shopping-cart text-primary mr-3 text-2xl"></i>bookings</h2>
+        
+        <!-- Filter buttons - responsive wrap -->
+        <div class="flex flex-wrap gap-2 mb-4">
+            <button class="px-4 py-2 rounded-full bg-primary text-white text-sm">all</button>
+            <button class="px-4 py-2 rounded-full border border-primary/30 hover:bg-primary/10 text-sm">confirmed</button>
+            <button class="px-4 py-2 rounded-full border border-primary/30 hover:bg-primary/10 text-sm">pending</button>
+            <button class="px-4 py-2 rounded-full border border-primary/30 hover:bg-primary/10 text-sm">completed</button>
+        </div>
+        
+        <!-- Responsive table -->
+        <div class="overflow-x-auto">
+            <table class="w-full min-w-[500px] md:min-w-full">
+                <thead class="table-header">
+                    <tr>
+                        <th class="p-3 text-left">ID</th>
+                        <th class="p-3 text-left">team</th>
+                        <th class="p-3 text-left">event</th>
+                        <th class="p-3 text-left">amount</th>
+                        <th class="p-3 text-left">status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="table-row">
+                        <td class="p-3 font-medium">#TB-102</td>
+                        <td class="p-3">TechCorp</td>
+                        <td class="p-3">Escape Room</td>
+                        <td class="p-3">$450</td>
+                        <td class="p-3"><span class="status-badge status-active">confirmed</span></td>
+                    </tr>
+                    <tr class="table-row">
+                        <td class="p-3 font-medium">#TB-109</td>
+                        <td class="p-3">InnovateLabs</td>
+                        <td class="p-3">Scavenger Hunt</td>
+                        <td class="p-3">$399</td>
+                        <td class="p-3"><span class="status-badge status-active">confirmed</span></td>
+                    </tr>
+                    <tr class="table-row">
+                        <td class="p-3 font-medium">#TB-115</td>
+                        <td class="p-3">CreativeStudio</td>
+                        <td class="p-3">Cooking Class</td>
+                        <td class="p-3">$525</td>
+                        <td class="p-3"><span class="status-badge status-pending">pending</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Mobile hint (optional) -->
+        <p class="text-xs text-center text-neutral-dark/50 dark:text-gray-500 mt-3 sm:hidden">← scroll horizontally →</p>
+    </div>
+</div>
 
             <!-- 5. MESSAGES -->
             <div id="messages-section" class="dashboard-section hidden">
@@ -396,7 +472,7 @@
                 <div class="dashboard-card">
                     <h2 class="text-2xl font-display font-bold mb-6 flex items-center"><i class="fas fa-cog text-primary mr-3 text-2xl"></i>settings</h2>
                     <div class="space-y-6">
-                        <div><h3 class="font-bold text-lg mb-3">company info</h3><div class="grid md:grid-cols-2 gap-4"><input class="admin-input" value="GROWW TEAM"><input class="admin-input" value="hello@growwteam.com"></div></div>
+                        <div><h3 class="font-bold text-lg mb-3">company info</h3><div class="grid md:grid-cols-2 gap-4"><input class="admin-input" value="GROWW TEM"><input class="admin-input" value="hello@growwteam.com"></div></div>
                         <div><h3 class="font-bold text-lg mb-3">payment gateways</h3><div class="bg-neutral-light/30 p-4 rounded-2xl space-y-3"><div class="flex justify-between"><span>stripe</span><label class="toggle-switch"><input type="checkbox" checked><span class="toggle-slider"></span></label></div><div class="flex justify-between"><span>paypal</span><label class="toggle-switch"><input type="checkbox"><span class="toggle-slider"></span></label></div></div></div>
                         <button class="admin-btn">save changes</button>
                     </div>
@@ -406,7 +482,7 @@
     </div>
 
     <!-- Footer -->
-    <div class="mt-12 text-center text-sm text-neutral-dark/50 dark:text-gray-500 border-t border-primary/10 pt-6">GROWW TEAM · team building management dashboard</div>
+    <div class="mt-12 text-center text-sm text-neutral-dark/50 dark:text-gray-500 border-t border-primary/10 pt-6">GROWW TEM · team building management dashboard</div>
 
     <!-- JavaScript -->
     <script>
@@ -479,24 +555,82 @@
                 });
             });
 
-            // Charts
+            // Charts - FIXED with proper mobile sizing
             if (document.getElementById('bookingsChart')) {
+                // Small screen optimization
+                const isMobile = window.innerWidth < 640;
+                
                 new Chart(document.getElementById('bookingsChart'), { 
                     type:'line', 
                     data:{ labels:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'], 
-                    datasets:[{ label:'bookings', data:[4,6,5,8,12,9,7], borderColor:'#6ca3bd', backgroundColor:'rgba(108,163,189,0.05)', tension:0.4, fill:true }] }, 
-                    options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{display:false} } } 
+                    datasets:[{ 
+                        label:'bookings', 
+                        data:[4,6,5,8,12,9,7], 
+                        borderColor:'#6ca3bd', 
+                        backgroundColor:'rgba(108,163,189,0.05)', 
+                        tension:0.4, 
+                        fill:true,
+                        pointRadius: isMobile ? 2 : 3,
+                        pointHoverRadius: isMobile ? 4 : 5
+                    }] }, 
+                    options:{ 
+                        responsive:true, 
+                        maintainAspectRatio:false, 
+                        plugins:{ legend:{display:false} },
+                        scales: {
+                            x: {
+                                ticks: {
+                                    maxRotation: isMobile ? 45 : 0,
+                                    font: {
+                                        size: isMobile ? 9 : 11
+                                    }
+                                }
+                            },
+                            y: {
+                                ticks: {
+                                    font: {
+                                        size: isMobile ? 9 : 11
+                                    }
+                                }
+                            }
+                        }
+                    } 
                 });
+                
                 new Chart(document.getElementById('activitiesChart'), { 
                     type:'doughnut', 
                     data:{ labels:['Escape Room','Scavenger Hunt','Cooking','Trivia'], 
-                    datasets:[{ data:[45,30,15,10], backgroundColor:['#6ca3bd','#8cb9d0','#E1D0B3','#4f7e94'] }] }, 
-                    options:{ responsive:true, maintainAspectRatio:false } 
+                    datasets:[{ 
+                        data:[45,30,15,10], 
+                        backgroundColor:['#6ca3bd','#8cb9d0','#E1D0B3','#4f7e94'],
+                        borderWidth: isMobile ? 1 : 2
+                    }] }, 
+                    options:{ 
+                        responsive:true, 
+                        maintainAspectRatio:false,
+                        plugins: {
+                            legend: {
+                                position: isMobile ? 'bottom' : 'top',
+                                labels: {
+                                    boxWidth: isMobile ? 8 : 12,
+                                    font: {
+                                        size: isMobile ? 9 : 11
+                                    }
+                                }
+                            }
+                        }
+                    } 
                 });
             }
 
             // Save button demo
             document.querySelectorAll('.admin-btn').forEach(b => b.addEventListener('click', ()=>alert('saved (demo)')));
+
+            // Handle resize for charts
+            window.addEventListener('resize', function() {
+                // Simple resize handling - you could recreate charts here for more precision
+                console.log('window resized');
+            });
         })();
     </script>
 </body>

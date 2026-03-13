@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GROWW TEAM · client dashboard</title>
+    <title>GROWW TEM · client dashboard</title>
     <link rel="icon" type="asset/jpeg" href="/assest/growwpark_logo.jpg">
 
     <!-- Tailwind CSS -->
@@ -258,7 +258,7 @@
             </div>
             <div class="font-display text-2xl font-bold tracking-tight">
                 <span class="text-neutral-dark dark:text-white">GROWW</span>
-                <span class="text-primary dark:text-primary-light ml-1">TEAM</span>
+                <span class="text-primary dark:text-primary-light ml-1">TEM</span>
             </div>
         </a>
         <div class="flex items-center gap-3">
@@ -391,114 +391,164 @@
                     </div>
                 </div>
 
-                <!-- 2. EVENT HISTORY -->
-                <div id="orders-section" class="dashboard-section hidden">
-                    <div class="dashboard-card">
-                        <h2 class="text-2xl font-display font-bold mb-7 flex items-center dark:text-white"><i class="fas fa-calendar-alt text-primary dark:text-primary-light mr-3 text-2xl"></i>event history</h2>
-                        <div class="flex gap-3 mb-6">
-                            <button class="px-5 py-2 rounded-full bg-primary text-white dark:bg-primary dark:text-white">all</button>
-                            <button class="px-5 py-2 rounded-full border border-primary/30 dark:border-gray-600 dark:text-gray-300">upcoming</button>
-                            <button class="px-5 py-2 rounded-full border border-primary/30 dark:border-gray-600 dark:text-gray-300">completed</button>
-                        </div>
-                        <div class="space-y-5">
-                            <!-- event 1 -->
-                            <div class="order-item">
-                                <div class="flex flex-col md:flex-row justify-between">
-                                    <div><h3 class="font-bold text-lg dark:text-white">Virtual Escape Room</h3><p class="text-sm text-neutral-dark/60 dark:text-gray-400">TechCorp · 15 participants</p></div>
-                                    <div class="flex items-center gap-5 mt-4 md:mt-0"><span class="font-bold text-xl text-primary dark:text-primary-light">$450</span><button class="text-primary dark:text-primary-light hover:underline">details</button></div>
-                                </div>
-                                <div class="flex gap-5 mt-3 text-sm text-neutral-dark/60 dark:text-gray-400"><span><i class="fas fa-calendar mr-1 text-primary dark:text-primary-light"></i>May 12, 2026</span><span><i class="fas fa-check-circle text-primary dark:text-primary-light mr-1"></i>completed</span></div>
-                            </div>
-                            <!-- event 2 -->
-                            <div class="order-item">
-                                <div class="flex flex-col md:flex-row justify-between">
-                                    <div><h3 class="font-bold text-lg dark:text-white">City Scavenger Hunt</h3><p class="text-sm text-neutral-dark/60 dark:text-gray-400">InnovateLabs · 8 participants</p></div>
-                                    <div class="flex items-center gap-5 mt-4 md:mt-0"><span class="font-bold text-xl text-primary dark:text-primary-light">$399</span><button class="text-primary dark:text-primary-light hover:underline">details</button></div>
-                                </div>
-                                <div class="flex gap-5 mt-3 text-sm text-neutral-dark/60 dark:text-gray-400"><span><i class="fas fa-calendar mr-1 text-primary dark:text-primary-light"></i>Jun 3, 2026</span><span><i class="fas fa-check-circle text-primary dark:text-primary-light mr-1"></i>completed</span></div>
-                            </div>
-                            <!-- event 3 pending -->
-                            <div class="order-item">
-                                <div class="flex flex-col md:flex-row justify-between">
-                                    <div><h3 class="font-bold text-lg dark:text-white">Cooking Class</h3><p class="text-sm text-neutral-dark/60 dark:text-gray-400">CreativeStudio · 12 participants</p></div>
-                                    <div class="flex items-center gap-5 mt-4 md:mt-0"><span class="font-bold text-xl text-primary dark:text-primary-light">$525</span><button class="text-primary dark:text-primary-light hover:underline">details</button></div>
-                                </div>
-                                <div class="flex gap-5 mt-3 text-sm text-neutral-dark/60 dark:text-gray-400"><span><i class="fas fa-calendar mr-1 text-primary dark:text-primary-light"></i>Jun 18, 2026</span><span class="status-badge status-pending dark:bg-accent-beige/20 dark:text-accent-beige">pending</span></div>
-                            </div>
-                        </div>
-                        <div class="mt-7 text-center"><button class="text-primary dark:text-primary-light font-semibold hover:underline">view all 8 events →</button></div>
+            <!-- 2. EVENT HISTORY - FIXED MOBILE ALIGNMENT -->
+<div id="orders-section" class="dashboard-section hidden">
+    <div class="dashboard-card">
+        <h2 class="text-2xl font-display font-bold mb-7 flex items-center dark:text-white"><i class="fas fa-calendar-alt text-primary dark:text-primary-light mr-3 text-2xl"></i>event history</h2>
+        
+        <!-- Filter buttons - wrap normally, no scroll -->
+        <div class="flex flex-wrap gap-3 mb-6">
+            <button class="px-5 py-2 rounded-full bg-primary text-white dark:bg-primary dark:text-white">all</button>
+            <button class="px-5 py-2 rounded-full border border-primary/30 dark:border-gray-600 dark:text-gray-300">upcoming</button>
+            <button class="px-5 py-2 rounded-full border border-primary/30 dark:border-gray-600 dark:text-gray-300">completed</button>
+        </div>
+        
+        <div class="space-y-5">
+            <!-- event 1 -->
+            <div class="order-item bg-neutral-light/30 dark:bg-gray-800/30 p-4 sm:p-5 rounded-xl">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                    <div>
+                        <h3 class="font-bold text-lg dark:text-white">Virtual Escape Room</h3>
+                        <p class="text-sm text-neutral-dark/60 dark:text-gray-400">TechCorp · 15 participants</p>
+                    </div>
+                    <div class="flex items-center justify-between w-full sm:w-auto gap-5">
+                        <span class="font-bold text-xl text-primary dark:text-primary-light">$450</span>
+                        <button class="text-primary dark:text-primary-light hover:underline text-sm">details →</button>
                     </div>
                 </div>
-
-                <!-- 3. SAVED EVENTS -->
-                <div id="saved-section" class="dashboard-section hidden">
-                    <div class="dashboard-card">
-                        <h2 class="text-2xl font-display font-bold mb-7 flex items-center dark:text-white"><i class="fas fa-heart text-primary dark:text-primary-light mr-3 text-2xl"></i>saved events</h2>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                            <div class="saved-item-card">
-                                <div class="w-24 h-24 bg-primary/10 dark:bg-primary/20 rounded-xl flex items-center justify-center"><i class="fas fa-puzzle-piece text-primary dark:text-primary-light text-3xl"></i></div>
-                                <div>
-                                    <h4 class="font-bold text-lg dark:text-white">Escape Room</h4>
-                                    <p class="text-xs text-neutral-dark/60 dark:text-gray-400">60-90 min · 2-50 people</p>
-                                    <div class="flex items-center justify-between mt-3">
-                                        <span class="font-bold text-primary dark:text-primary-light text-xl">$450<span class="text-sm font-normal text-neutral-dark/60 dark:text-gray-400 ml-1">/event</span></span>
-                                        <div class="flex gap-2">
-                                            <button class="w-9 h-9 bg-primary/10 dark:bg-primary/20 rounded-lg flex items-center justify-center text-primary dark:text-primary-light hover:bg-primary hover:text-white transition"><i class="fas fa-shopping-cart"></i></button>
-                                            <button class="w-9 h-9 bg-red-50 dark:bg-red-900/20 rounded-lg flex items-center justify-center text-red-500 dark:text-red-400 hover:bg-red-500 hover:text-white transition"><i class="fas fa-trash-alt"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="saved-item-card">
-                                <div class="w-24 h-24 bg-primary/10 dark:bg-primary/20 rounded-xl flex items-center justify-center"><i class="fas fa-chess-board text-primary dark:text-primary-light text-3xl"></i></div>
-                                <div>
-                                    <h4 class="font-bold text-lg dark:text-white">Scavenger Hunt</h4>
-                                    <p class="text-xs text-neutral-dark/60 dark:text-gray-400">2-3 hrs · 10-100 people</p>
-                                    <div class="flex items-center justify-between mt-3">
-                                        <span class="font-bold text-primary dark:text-primary-light text-xl">$399<span class="text-sm font-normal text-neutral-dark/60 dark:text-gray-400 ml-1">/event</span></span>
-                                        <div class="flex gap-2">
-                                            <button class="w-9 h-9 bg-primary/10 dark:bg-primary/20 rounded-lg flex items-center justify-center text-primary dark:text-primary-light hover:bg-primary hover:text-white transition"><i class="fas fa-shopping-cart"></i></button>
-                                            <button class="w-9 h-9 bg-red-50 dark:bg-red-900/20 rounded-lg flex items-center justify-center text-red-500 dark:text-red-400 hover:bg-red-500 hover:text-white transition"><i class="fas fa-trash-alt"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="saved-item-card">
-                                <div class="w-24 h-24 bg-primary/10 dark:bg-primary/20 rounded-xl flex items-center justify-center"><i class="fas fa-utensils text-primary dark:text-primary-light text-3xl"></i></div>
-                                <div>
-                                    <h4 class="font-bold text-lg dark:text-white">Cooking Class</h4>
-                                    <p class="text-xs text-neutral-dark/60 dark:text-gray-400">2-3 hrs · 8-40 people</p>
-                                    <div class="flex items-center justify-between mt-3">
-                                        <span class="font-bold text-primary dark:text-primary-light text-xl">$525<span class="text-sm font-normal text-neutral-dark/60 dark:text-gray-400 ml-1">/event</span></span>
-                                        <div class="flex gap-2">
-                                            <button class="w-9 h-9 bg-primary/10 dark:bg-primary/20 rounded-lg flex items-center justify-center text-primary dark:text-primary-light hover:bg-primary hover:text-white transition"><i class="fas fa-shopping-cart"></i></button>
-                                            <button class="w-9 h-9 bg-red-50 dark:bg-red-900/20 rounded-lg flex items-center justify-center text-red-500 dark:text-red-400 hover:bg-red-500 hover:text-white transition"><i class="fas fa-trash-alt"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="saved-item-card">
-                                <div class="w-24 h-24 bg-primary/10 dark:bg-primary/20 rounded-xl flex items-center justify-center"><i class="fas fa-question-circle text-primary dark:text-primary-light text-3xl"></i></div>
-                                <div>
-                                    <h4 class="font-bold text-lg dark:text-white">Trivia Challenge</h4>
-                                    <p class="text-xs text-neutral-dark/60 dark:text-gray-400">45-60 min · 10-200 people</p>
-                                    <div class="flex items-center justify-between mt-3">
-                                        <span class="font-bold text-primary dark:text-primary-light text-xl">$299<span class="text-sm font-normal text-neutral-dark/60 dark:text-gray-400 ml-1">/event</span></span>
-                                        <div class="flex gap-2">
-                                            <button class="w-9 h-9 bg-primary/10 dark:bg-primary/20 rounded-lg flex items-center justify-center text-primary dark:text-primary-light hover:bg-primary hover:text-white transition"><i class="fas fa-shopping-cart"></i></button>
-                                            <button class="w-9 h-9 bg-red-50 dark:bg-red-900/20 rounded-lg flex items-center justify-center text-red-500 dark:text-red-400 hover:bg-red-500 hover:text-white transition"><i class="fas fa-trash-alt"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mt-7 text-center"><button class="text-primary dark:text-primary-light font-semibold hover:underline">browse more events →</button></div>
+                <div class="flex flex-wrap gap-3 sm:gap-5 mt-3 text-sm text-neutral-dark/60 dark:text-gray-400">
+                    <span><i class="fas fa-calendar mr-1 text-primary dark:text-primary-light"></i>May 12, 2026</span>
+                    <span><i class="fas fa-check-circle text-primary dark:text-primary-light mr-1"></i>completed</span>
+                </div>
+            </div>
+            
+            <!-- event 2 -->
+            <div class="order-item bg-neutral-light/30 dark:bg-gray-800/30 p-4 sm:p-5 rounded-xl">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                    <div>
+                        <h3 class="font-bold text-lg dark:text-white">City Scavenger Hunt</h3>
+                        <p class="text-sm text-neutral-dark/60 dark:text-gray-400">InnovateLabs · 8 participants</p>
+                    </div>
+                    <div class="flex items-center justify-between w-full sm:w-auto gap-5">
+                        <span class="font-bold text-xl text-primary dark:text-primary-light">$399</span>
+                        <button class="text-primary dark:text-primary-light hover:underline text-sm">details →</button>
                     </div>
                 </div>
+                <div class="flex flex-wrap gap-3 sm:gap-5 mt-3 text-sm text-neutral-dark/60 dark:text-gray-400">
+                    <span><i class="fas fa-calendar mr-1 text-primary dark:text-primary-light"></i>Jun 3, 2026</span>
+                    <span><i class="fas fa-check-circle text-primary dark:text-primary-light mr-1"></i>completed</span>
+                </div>
+            </div>
+            
+            <!-- event 3 pending -->
+            <div class="order-item bg-neutral-light/30 dark:bg-gray-800/30 p-4 sm:p-5 rounded-xl">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                    <div>
+                        <h3 class="font-bold text-lg dark:text-white">Cooking Class</h3>
+                        <p class="text-sm text-neutral-dark/60 dark:text-gray-400">CreativeStudio · 12 participants</p>
+                    </div>
+                    <div class="flex items-center justify-between w-full sm:w-auto gap-5">
+                        <span class="font-bold text-xl text-primary dark:text-primary-light">$525</span>
+                        <button class="text-primary dark:text-primary-light hover:underline text-sm">details →</button>
+                    </div>
+                </div>
+                <div class="flex flex-wrap gap-3 sm:gap-5 mt-3 text-sm text-neutral-dark/60 dark:text-gray-400">
+                    <span><i class="fas fa-calendar mr-1 text-primary dark:text-primary-light"></i>Jun 18, 2026</span>
+                    <span class="status-badge status-pending dark:bg-accent-beige/20 dark:text-accent-beige">pending</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-7 text-center">
+            <button class="text-primary dark:text-primary-light font-semibold hover:underline">view all 8 events →</button>
+        </div>
+    </div>
+</div>
 
+<!-- 3. SAVED EVENTS - MOBILE CENTERED, DESKTOP LEFT -->
+<div id="saved-section" class="dashboard-section hidden">
+    <div class="dashboard-card">
+        <h2 class="text-2xl font-display font-bold mb-7 flex items-center dark:text-white"><i class="fas fa-heart text-primary dark:text-primary-light mr-3 text-2xl"></i>saved events</h2>
+        
+        <div class="grid grid-cols-1 gap-5">
+            <!-- Saved Event 1 -->
+            <div class="saved-item-card bg-neutral-light/30 dark:bg-gray-800/30 p-4 rounded-xl flex flex-col items-center sm:items-start sm:flex-row gap-4">
+                <div class="w-24 h-24 bg-primary/10 dark:bg-primary/20 rounded-xl flex items-center justify-center">
+                    <i class="fas fa-puzzle-piece text-primary dark:text-primary-light text-3xl"></i>
+                </div>
+                <div class="flex-1 text-center sm:text-left">
+                    <h4 class="font-bold text-lg dark:text-white">Escape Room</h4>
+                    <p class="text-xs text-neutral-dark/60 dark:text-gray-400 mb-2">60-90 min · 2-50 people</p>
+                    <div class="flex flex-col items-center sm:items-start sm:flex-row sm:justify-between gap-3">
+                        <span class="font-bold text-primary dark:text-primary-light text-xl">$450<span class="text-sm font-normal text-neutral-dark/60 dark:text-gray-400 ml-1">/event</span></span>
+                        <div class="flex gap-2">
+                            <button class="w-9 h-9 bg-primary/10 dark:bg-primary/20 rounded-lg flex items-center justify-center text-primary dark:text-primary-light hover:bg-primary hover:text-white transition"><i class="fas fa-shopping-cart"></i></button>
+                            <button class="w-9 h-9 bg-red-50 dark:bg-red-900/20 rounded-lg flex items-center justify-center text-red-500 dark:text-red-400 hover:bg-red-500 hover:text-white transition"><i class="fas fa-trash-alt"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Saved Event 2 -->
+            <div class="saved-item-card bg-neutral-light/30 dark:bg-gray-800/30 p-4 rounded-xl flex flex-col items-center sm:items-start sm:flex-row gap-4">
+                <div class="w-24 h-24 bg-primary/10 dark:bg-primary/20 rounded-xl flex items-center justify-center">
+                    <i class="fas fa-chess-board text-primary dark:text-primary-light text-3xl"></i>
+                </div>
+                <div class="flex-1 text-center sm:text-left">
+                    <h4 class="font-bold text-lg dark:text-white">Scavenger Hunt</h4>
+                    <p class="text-xs text-neutral-dark/60 dark:text-gray-400 mb-2">2-3 hrs · 10-100 people</p>
+                    <div class="flex flex-col items-center sm:items-start sm:flex-row sm:justify-between gap-3">
+                        <span class="font-bold text-primary dark:text-primary-light text-xl">$399<span class="text-sm font-normal text-neutral-dark/60 dark:text-gray-400 ml-1">/event</span></span>
+                        <div class="flex gap-2">
+                            <button class="w-9 h-9 bg-primary/10 dark:bg-primary/20 rounded-lg flex items-center justify-center text-primary dark:text-primary-light hover:bg-primary hover:text-white transition"><i class="fas fa-shopping-cart"></i></button>
+                            <button class="w-9 h-9 bg-red-50 dark:bg-red-900/20 rounded-lg flex items-center justify-center text-red-500 dark:text-red-400 hover:bg-red-500 hover:text-white transition"><i class="fas fa-trash-alt"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Saved Event 3 -->
+            <div class="saved-item-card bg-neutral-light/30 dark:bg-gray-800/30 p-4 rounded-xl flex flex-col items-center sm:items-start sm:flex-row gap-4">
+                <div class="w-24 h-24 bg-primary/10 dark:bg-primary/20 rounded-xl flex items-center justify-center">
+                    <i class="fas fa-utensils text-primary dark:text-primary-light text-3xl"></i>
+                </div>
+                <div class="flex-1 text-center sm:text-left">
+                    <h4 class="font-bold text-lg dark:text-white">Cooking Class</h4>
+                    <p class="text-xs text-neutral-dark/60 dark:text-gray-400 mb-2">2-3 hrs · 8-40 people</p>
+                    <div class="flex flex-col items-center sm:items-start sm:flex-row sm:justify-between gap-3">
+                        <span class="font-bold text-primary dark:text-primary-light text-xl">$525<span class="text-sm font-normal text-neutral-dark/60 dark:text-gray-400 ml-1">/event</span></span>
+                        <div class="flex gap-2">
+                            <button class="w-9 h-9 bg-primary/10 dark:bg-primary/20 rounded-lg flex items-center justify-center text-primary dark:text-primary-light hover:bg-primary hover:text-white transition"><i class="fas fa-shopping-cart"></i></button>
+                            <button class="w-9 h-9 bg-red-50 dark:bg-red-900/20 rounded-lg flex items-center justify-center text-red-500 dark:text-red-400 hover:bg-red-500 hover:text-white transition"><i class="fas fa-trash-alt"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Saved Event 4 -->
+            <div class="saved-item-card bg-neutral-light/30 dark:bg-gray-800/30 p-4 rounded-xl flex flex-col items-center sm:items-start sm:flex-row gap-4">
+                <div class="w-24 h-24 bg-primary/10 dark:bg-primary/20 rounded-xl flex items-center justify-center">
+                    <i class="fas fa-question-circle text-primary dark:text-primary-light text-3xl"></i>
+                </div>
+                <div class="flex-1 text-center sm:text-left">
+                    <h4 class="font-bold text-lg dark:text-white">Trivia Challenge</h4>
+                    <p class="text-xs text-neutral-dark/60 dark:text-gray-400 mb-2">45-60 min · 10-200 people</p>
+                    <div class="flex flex-col items-center sm:items-start sm:flex-row sm:justify-between gap-3">
+                        <span class="font-bold text-primary dark:text-primary-light text-xl">$299<span class="text-sm font-normal text-neutral-dark/60 dark:text-gray-400 ml-1">/event</span></span>
+                        <div class="flex gap-2">
+                            <button class="w-9 h-9 bg-primary/10 dark:bg-primary/20 rounded-lg flex items-center justify-center text-primary dark:text-primary-light hover:bg-primary hover:text-white transition"><i class="fas fa-shopping-cart"></i></button>
+                            <button class="w-9 h-9 bg-red-50 dark:bg-red-900/20 rounded-lg flex items-center justify-center text-red-500 dark:text-red-400 hover:bg-red-500 hover:text-white transition"><i class="fas fa-trash-alt"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-7 text-center">
+            <button class="text-primary dark:text-primary-light font-semibold hover:underline">browse more events →</button>
+        </div>
+    </div>
+</div>
                 <!-- 4. MESSAGES -->
                 <div id="messages-section" class="dashboard-section hidden">
                     <div class="dashboard-card">
@@ -615,7 +665,7 @@
     </div>
 
     <!-- footer line -->
-    <div class="mt-12 text-center text-sm text-neutral-dark/50 dark:text-gray-400 border-t border-primary/10 dark:border-gray-700 pt-6">GROWW TEAM · client dashboard</div>
+    <div class="mt-12 text-center text-sm text-neutral-dark/50 dark:text-gray-400 border-t border-primary/10 dark:border-gray-700 pt-6">GROWW TEM · client dashboard</div>
 
     <script>
         (function() {
