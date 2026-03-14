@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height, viewport-fit=cover">
+    <title>EVENTRO · Login</title>
+    <link rel="icon" type="asset/jpeg" href="assets/growwpark_logo.jpg">
+    <!-- Tailwind + GROWW‑TEM colour config (primary #6ca3bd, accent #E1D0B3, neutral warm) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#6ca3bd',
+                        'primary-light': '#8cb9d0',
+                        'primary-dark': '#4f7e94',
+                        'accent-beige': '#E1D0B3',
+                        'bg-warm': '#FFFFFF',
+                        'neutral-dark': '#2A2A2A',
+                        'neutral-light': '#F5F5F5',
+                        'dark-bg': '#0a0a0a',
+                        'dark-card': '#1e1e1e',
+                        'dark-surface': '#2a2a2a',
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'system-ui', 'sans-serif'],
+                        display: ['Playfair Display', 'serif'],
+                        alt: ['Open Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800;900&family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ----- fullscreen, no scroll, with new light background (#f8f4e9) ----- */
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: #f8f4e9;      /* warm light beige – matches reference */
+            color: #2A2A2A;                  /* neutral-dark */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            font-family: 'Montserrat', system-ui, sans-serif;
+        }
+        .dark body {
+            background-color: #0a0a0a;       /* dark-bg */
+            color: #ffffff;
+        }
+
+        /* toggle buttons top‑right — now using primary + accent */
+        .theme-toggle-wrapper {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: 8px;
+        }
+        .toggle-btn {
+            width: 42px; height: 42px;
+            border-radius: 12px;
+            display: inline-flex; 
+            align-items: center; 
+            justify-content: center;
+            background: #E1D0B3;            /* accent-beige */
+            color: #2A2A2A;                  /* neutral-dark */
+            transition: all 0.2s ease; 
+            border: none; 
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+        .dark .toggle-btn { 
+            background: #2a2a2a;             /* dark-surface */
+            color: #ffffff; 
+        }
+        .toggle-btn:hover { 
+            background: #6ca3bd;             /* primary */
+            color: white; 
+        }
+        .dark .toggle-btn:hover { 
+            background: #6ca3bd; 
+            color: #0a0a0a; 
+        }
+        .toggle-btn.active { 
+            background: #6ca3bd; 
+            color: white; 
+        }
+        .dark .toggle-btn.active { 
+            background: #6ca3bd; 
+            color: #0a0a0a; 
+        }
+
+        /* LOGIN CARD — white card, primary accents */
+        .login-card {
+            background: white;
+            border-radius: 36px;
+            padding: 2.2rem 2rem 2rem;
+            box-shadow: 0 20px 45px rgba(108,163,189,0.12);   /* primary tint */
+            border: 1px solid rgba(108,163,189,0.15);
+            width: 100%;
+            max-width: 460px;
+            margin: 0 auto;
+        }
+        .dark .login-card {
+            background: #1e1e1e;            /* dark-card */
+            border-color: #404040;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+        }
+
+        /* INPUT fields — using primary border on focus */
+        .login-input {
+            width: 100%;
+            padding: 0.85rem 1.2rem 0.85rem 3rem;
+            border-radius: 50px;
+            border: 1px solid #F5F5F5;       /* neutral-light */
+            background: white;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            color: #2A2A2A;
+        }
+        .dark .login-input {
+            background: #2a2a2a;             /* dark-surface */
+            border-color: #4b4b4b;
+            color: #f0f0f0;
+        }
+        .login-input:focus {
+            outline: none;
+            border-color: #6ca3bd;           /* primary */
+            box-shadow: 0 0 0 3px rgba(108,163,189,0.2);
+        }
+        .dark .login-input:focus {
+            border-color: #8cb9d0;            /* primary-light */
+            box-shadow: 0 0 0 3px rgba(108,163,189,0.25);
+        }
+
+        /* PRIMARY BUTTON — exactly like GROWW‑TEM .btn-primary */
+        .adventure-btn {
+            background: #6ca3bd;               /* primary */
+            color: white; 
+            font-weight: 600; 
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px; 
+            transition: all 0.3s ease;
+            display: inline-flex; 
+            align-items: center; 
+            justify-content: center;
+            width: 100%; 
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+        }
+        .dark .adventure-btn {
+            background: #6ca3bd;                /* stays primary */
+            color: #0a0a0a;
+        }
+        .adventure-btn:hover {
+            background: #4f7e94;                 /* primary-dark */
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(108,163,189,0.35);
+        }
+        .dark .adventure-btn:hover {
+            background: #4f7e94;
+            box-shadow: 0 8px 20px rgba(108,163,189,0.35);
+        }
+
+        /* SOCIAL BUTTONS (Google / Apple) now use accent-beige background on hover */
+        .social-btn-row {
+            display: flex;
+            gap: 1rem;
+            width: 100%;
+        }
+        .social-btn {
+            flex: 1;
+            padding: 0.8rem 0.5rem;
+            border-radius: 50px;
+            border: 1px solid #F5F5F5;          /* neutral-light */
+            background: white;
+            color: #2A2A2A;
+            font-weight: 500;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.25s ease;
+            gap: 0.5rem;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+        .dark .social-btn {
+            background: #2a2a2a;                  /* dark-surface */
+            border-color: #4b4b4b;
+            color: #e5e5e5;
+        }
+        .social-btn:hover {
+            background: #E1D0B3;                   /* accent-beige */
+            border-color: #6ca3bd;                  /* primary */
+            transform: translateY(-2px);
+        }
+        .dark .social-btn:hover {
+            background: #4f7e94;                     /* primary-dark */
+            border-color: #6ca3bd;
+            color: white;
+        }
+        .social-btn i {
+            font-size: 1.1rem;
+            color: #6ca3bd;                           /* primary */
+        }
+        .dark .social-btn i {
+            color: #6ca3bd;
+        }
+
+        /* logo spin — kept */
+        .logo-icon {
+            transition: transform 0.3s ease;
+        }
+        a:hover .logo-icon {
+            transform: rotate(12deg);
+        }
+
+        /* RTL adjustments */
+        [dir="rtl"] .login-input { padding: 0.85rem 3rem 0.85rem 1.2rem; }
+        [dir="rtl"] .input-icon { left: auto; right: 1.1rem; }
+        [dir="rtl"] .fa-arrow-right { transform: scaleX(-1); }
+        [dir="rtl"] .theme-toggle-wrapper {
+            right: auto;
+            left: 20px;
+        }
+        [dir="rtl"] .ml-2 { margin-left: 0; margin-right: 0.5rem; }
+        [dir="rtl"] .mr-2 { margin-right: 0; margin-left: 0.5rem; }
+
+        /* container */
+        .container-tight {
+            max-width: 480px;
+            width: 100%;
+            padding: 0 1.2rem;
+        }
+
+        /* logo + welcome title — using Playfair and primary */
+        .logo-center {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+        .welcome-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;                       /* slightly larger */
+            font-weight: 700;
+            color: #2A2A2A;
+            margin-top: 1rem;
+            margin-bottom: 0.25rem;
+            text-align: center;
+            line-height: 1.2;
+        }
+        .dark .welcome-title {
+            color: white;
+        }
+        .welcome-subtitle {
+            font-size: 0.9rem;
+            color: rgba(42, 42, 42, 0.7);
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+        .dark .welcome-subtitle {
+            color: #9CA3AF;
+        }
+
+        /* trust badges — primary colour for icons */
+        .trust-badge i {
+            color: #6ca3bd;
+        }
+
+        /* mobile adjustments */
+        @media (max-width: 380px) {
+            .social-btn-row { flex-direction: column; }
+            .login-card { padding: 1.8rem 1.5rem; }
+        }
+        @media (max-width: 480px) {
+            .theme-toggle-wrapper { top: 12px; right: 12px; }
+            [dir="rtl"] .theme-toggle-wrapper { left: 12px; }
+        }
+    </style>
+</head>
+<body class="bg-[#f8f4e9] dark:bg-dark-bg">   <!-- light background updated to warm beige -->
+
+    <!-- top‑right toggles (unchanged) -->
+    <div class="theme-toggle-wrapper">
+        <button id="theme-toggle" class="toggle-btn" title="Dark / Light">
+            <i class="fas fa-moon"></i>
+            <i class="fas fa-sun hidden"></i>
+        </button>
+        <button id="rtl-toggle" class="toggle-btn" title="RTL / LTR">⇄</button>
+    </div>
+
+    <!-- main container -->
+    <div class="container-tight">
+        <!-- LOGIN CARD -->
+        <div class="login-card animate-fade-in">
+            <!-- Logo + welcome (EVENTRO) -->
+            <div class="logo-center">
+                <a href="index.html" class="flex items-center space-x-3 rtl:space-x-reverse group">
+                    <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center transform group-hover:scale-105 transition-transform duration-300">
+                        <i class="fas fa-users text-white text-lg"></i>
+                    </div>
+                    <div>
+                        <span class="text-2xl font-display font-bold tracking-tight text-neutral-dark dark:text-white">EVENTRO</span>
+                    </div>
+                </a>
+                <h1 class="welcome-title">Welcome Back</h1>
+            </div>
+
+            <!-- form -->
+            <form class="space-y-5" action="index.html" method="GET">
+                <!-- email -->
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-primary dark:text-primary-light input-icon">
+                        <i class="fas fa-envelope w-5 text-sm"></i>
+                    </span>
+                    <input type="email" name="email" placeholder="Email address" required
+                           class="login-input text-sm md:text-base">
+                </div>
+                <!-- password -->
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-primary dark:text-primary-light input-icon">
+                        <i class="fas fa-lock w-5 text-sm"></i>
+                    </span>
+                    <input type="password" name="password" placeholder="Password" required
+                           class="login-input text-sm md:text-base">
+                </div>
+
+                <!-- remember + forgot -->
+                <div class="flex items-center justify-between text-xs md:text-sm">
+                    <label class="flex items-center space-x-2 rtl:space-x-reverse cursor-pointer text-neutral-dark dark:text-gray-300">
+                        <input type="checkbox" class="rounded border-neutral-light dark:border-gray-600 text-primary focus:ring-primary/30 dark:bg-gray-700" checked>
+                        <span class="ml-1 rtl:mr-1">Remember me</span>
+                    </label>
+                    <a href="#" class="text-primary dark:text-primary-light hover:text-primary-dark font-medium transition hover:underline">
+                        Forgot password?
+                    </a>
+                </div>
+
+                <!-- LOGIN BUTTON -->
+                <button type="submit" class="adventure-btn mt-3">
+                    <i class="fas fa-arrow-right-to-bracket mr-2 rtl:ml-2 rtl:mr-0"></i>
+                    Sign in
+                </button>
+
+                <!-- divider -->
+                <div class="relative my-4">
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="w-full border-t border-neutral-light dark:border-gray-700"></div>
+                    </div>
+                    <div class="relative flex justify-center text-xs">
+                        <span class="bg-white dark:bg-dark-card px-4 py-0.5 text-neutral-dark/50 dark:text-gray-400 rounded-full">
+                            New to Eventro or continue with
+                        </span>
+                    </div>
+                </div>
+
+                <!-- SIGN UP LINK -->
+                <div class="text-center">
+                    <a href="signup.html" class="inline-flex items-center text-primary dark:text-primary-light font-semibold hover:text-primary-dark transition group text-sm md:text-base">
+                        <i class="fas fa-user-plus mr-2 rtl:ml-2 rtl:mr-0"></i>
+                        Create your free account
+                        <i class="fas fa-arrow-right ml-2 rtl:mr-2 rtl:ml-0 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition"></i>
+                    </a>
+                </div>
+            </form>
+
+            <!-- social login row -->
+            <div class="mt-6 space-y-3">
+                <div class="social-btn-row">
+                    <button class="social-btn group" onclick="window.location.href='index.html';">
+                        <i class="fab fa-google text-primary dark:text-primary-light"></i>
+                        <span>Google</span>
+                    </button>
+                    <button class="social-btn group" onclick="window.location.href='index.html';">
+                        <i class="fab fa-apple text-primary dark:text-primary-light text-lg"></i>
+                        <span>Apple</span>
+                    </button>
+                </div>
+            </div>
+            <!-- toggles removed from here -->
+        </div>
+
+        <!-- trust badges -->
+        <div class="flex justify-center gap-4 mt-3 text-[0.65rem] md:text-xs text-neutral-dark/70 dark:text-gray-500">
+            <span class="flex items-center trust-badge"><i class="fas fa-shield-alt text-primary mr-1"></i> secure</span>
+            <span class="flex items-center trust-badge"><i class="fas fa-headset text-primary mr-1"></i> 24/7</span>
+            <span class="flex items-center trust-badge"><i class="fas fa-globe text-primary mr-1"></i> 50+ countries</span>
+        </div>
+    </div>
+
+    <!-- tiny footer -->
+    <div class="container-tight mt-1 text-center text-[0.6rem] text-neutral-dark/70 dark:text-gray-600 border-t border-neutral-light/40 dark:border-gray-800/40 pt-3">
+        © 2026 EVENTRO · <a href="index.html" class="text-primary dark:text-primary-light hover:underline">Home</a>
+    </div>
+
+    <!-- ===== TOGGLE SCRIPTS ===== -->
+    <script>
+        (function() {
+            // ---------- THEME ----------
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeIconMoon = themeToggle?.querySelector('.fa-moon');
+            const themeIconSun = themeToggle?.querySelector('.fa-sun');
+
+            function setTheme(isDark) {
+                if (isDark) {
+                    document.documentElement.classList.add('dark');
+                    if (themeIconMoon) themeIconMoon.classList.add('hidden');
+                    if (themeIconSun) themeIconSun.classList.remove('hidden');
+                    themeToggle?.classList.add('active');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    if (themeIconMoon) themeIconMoon.classList.remove('hidden');
+                    if (themeIconSun) themeIconSun.classList.add('hidden');
+                    themeToggle?.classList.remove('active');
+                    localStorage.setItem('theme', 'light');
+                }
+            }
+            const savedTheme = localStorage.getItem('theme');
+            savedTheme === 'dark' ? setTheme(true) : setTheme(false);
+
+            if (themeToggle) {
+                themeToggle.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    setTheme(!document.documentElement.classList.contains('dark'));
+                });
+            }
+
+            // ---------- RTL ----------
+            const rtlBtn = document.getElementById('rtl-toggle');
+            function setRTL(isRTL) {
+                if (isRTL) {
+                    document.documentElement.dir = 'rtl';
+                    document.documentElement.lang = 'ar';
+                    rtlBtn?.classList.add('active');
+                    localStorage.setItem('dir', 'rtl');
+                } else {
+                    document.documentElement.dir = 'ltr';
+                    document.documentElement.lang = 'en';
+                    rtlBtn?.classList.remove('active');
+                    localStorage.setItem('dir', 'ltr');
+                }
+            }
+            const savedDir = localStorage.getItem('dir');
+            savedDir === 'rtl' ? setRTL(true) : setRTL(false);
+
+            if (rtlBtn) {
+                rtlBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    setRTL(document.documentElement.dir !== 'rtl');
+                });
+            }
+
+            // forgot password demo alert
+            document.querySelectorAll('a[href="#"]').forEach(link => {
+                if (link.textContent.includes('Forgot') || link.innerHTML.includes('Forgot')) {
+                    link.addEventListener('click', (e) => { 
+                        e.preventDefault(); 
+                        alert('🔐 Password reset demo'); 
+                    });
+                }
+            });
+        })();
+    </script>
+</body>
+</html>
