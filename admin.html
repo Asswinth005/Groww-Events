@@ -50,6 +50,8 @@
             color: #2A2A2A;
             font-family: 'Montserrat', system-ui, sans-serif;
             font-weight: 400;
+            margin: 0;
+            padding: 0;
         }
         .dark body {
             background-color: #0a0a0a;
@@ -65,7 +67,7 @@
         body::-webkit-scrollbar { display: none; }
         body { -ms-overflow-style: none; scrollbar-width: none; }
         
-        /* dashboard card – same premium feel */
+        /* dashboard card */
         .dashboard-card {
             background: white;
             border-radius: 32px;
@@ -114,7 +116,7 @@
         [dir="rtl"] .sidebar-item:hover { transform: translateX(-6px); }
         .sidebar-item i { width: 28px; font-size: 1.25rem; }
         
-        /* toggle button from reference */
+        /* toggle button */
         .toggle-btn {
             width: 40px; height: 40px;
             border-radius: 50%;
@@ -201,7 +203,7 @@
         input:checked + .toggle-slider:before { transform: translateX(24px); }
         .dark input:checked + .toggle-slider { background-color: #8cb9d0; }
         
-        /* chart container - improved mobile responsiveness */
+        /* chart container */
         .chart-container { 
             position: relative; 
             height: 200px; 
@@ -228,260 +230,354 @@
                 min-height: 160px;
             }
         }
+        
+        /* ===== FULL-WIDTH STICKY HEADER ===== */
+        .sticky-header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid rgba(108,163,189,0.1);
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+            margin-right: calc(-50vw + 50%);
+            padding: 1rem 2rem;
+            box-sizing: border-box;
+            left: 0;
+            right: 0;
+        }
+        .dark .sticky-header {
+            background-color: rgba(10, 10, 10, 0.95);
+            border-bottom: 1px solid #333;
+        }
+        
+        /* Logout button */
+        .logout-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: transparent;
+            border: 1px solid #E1D0B3;
+            color: #1a1a1a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            font-size: 1.1rem;
+            cursor: pointer;
+        }
+        .dark .logout-btn { border-color: #666666; color: #ffffff; }
+        .logout-btn:hover {
+            background: #6ca3bd;
+            border-color: #6ca3bd;
+            color: white;
+            transform: scale(1.05);
+        }
+        .dark .logout-btn:hover { background: #6ca3bd; border-color: #6ca3bd; }
+
+        /* Header inner container - now properly spaced */
+        .header-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        /* Logo stays on left */
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        /* Button group stays on right */
+        .button-group {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        /* Main content wrapper */
+        .main-wrapper {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+        @media (max-width: 640px) {
+            .main-wrapper {
+                padding: 1.5rem 1rem;
+            }
+        }
     </style>
 </head>
-<body class="bg-white dark:bg-dark-bg p-4 sm:p-6 md:p-8">
+<body class="bg-white dark:bg-dark-bg">
 
-    <!-- ========== HEADER ==========  -->
-    <div class="flex justify-between items-center mb-8">
-        <a href="index.html" class="flex items-center space-x-2 group">
-            <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center transform group-hover:scale-105 transition-transform">
-                <i class="fas fa-users text-white text-lg"></i>
+    <!-- ========== FULL-WIDTH STICKY HEADER ========== -->
+    <div class="sticky-header">
+        <div class="header-inner">
+            <!-- Logo - strictly left -->
+            <div class="logo-container">
+                <a href="index.html" class="flex items-center space-x-2 group">
+                    <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center transform group-hover:scale-105 transition-transform">
+                        <i class="fas fa-users text-white text-lg"></i>
+                    </div>
+                    <div class="font-display text-2xl font-bold tracking-tight">
+                        <span class="text-neutral-dark dark:text-white">EVENTRO</span>
+                    </div>
+                </a>
             </div>
-            <div class="font-display text-2xl font-bold tracking-tight">
-                <span class="text-neutral-dark dark:text-white">EVENTRO</span>
+
+            <!-- Button group - strictly right -->
+            <div class="button-group">
+                <button id="theme-toggle" class="toggle-btn" title="Theme"><i class="fas fa-moon"></i><i class="fas fa-sun hidden"></i></button>
+                <button id="rtl-toggle" class="toggle-btn" title="RTL/LTR">⇄</button>
+                <!-- Logout button -->
+                <a href="login.html" class="logout-btn" title="Logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                </a>
             </div>
-        </a>
-        <div class="flex items-center gap-3">
-            <button id="theme-toggle" class="toggle-btn" title="Theme"><i class="fas fa-moon"></i><i class="fas fa-sun hidden"></i></button>
-            <button id="rtl-toggle" class="toggle-btn" title="RTL/LTR">⇄</button>
         </div>
     </div>
 
-    <!-- Dashboard title -->
-    <div class="mb-10">
-        <h1 class="text-4xl md:text-5xl font-display font-bold dark:text-white">admin <span class="text-primary dark:text-primary-light">dashboard</span></h1>
-        <p class="text-base text-neutral-dark/70 dark:text-gray-400 mt-1 font-medium">manage team building events, bookings & activities</p>
-    </div>
+    <!-- Main content wrapper -->
+    <div class="main-wrapper">
+        <!-- Dashboard title -->
+        <div class="mb-10">
+            <h1 class="text-4xl md:text-5xl font-display font-bold dark:text-white">Admin <span class="text-primary dark:text-primary-light">Dashboard</span></h1>
+            <p class="text-base text-neutral-dark/70 dark:text-gray-400 mt-1 font-medium">manage team building events, bookings & activities</p>
+        </div>
 
-    <!-- MAIN GRID: sidebar + content (7 sections) -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        
-        <!-- SIDEBAR (7 items) -->
-        <div class="lg:col-span-3">
-            <div class="dashboard-card p-6">
-                <div class="flex flex-col space-y-1">
-                    <div class="sidebar-item active" data-section="overview"><i class="fas fa-chart-pie w-6"></i><span class="ml-3">Overview</span></div>
-                    <div class="sidebar-item" data-section="teams"><i class="fas fa-users w-6"></i><span class="ml-3">Teams</span></div>
-                    <div class="sidebar-item" data-section="events"><i class="fas fa-calendar-alt w-6"></i><span class="ml-3">Events</span></div>
-                    <div class="sidebar-item" data-section="bookings"><i class="fas fa-shopping-cart w-6"></i><span class="ml-3">Bookings</span></div>
-                    <div class="sidebar-item" data-section="messages"><i class="fas fa-envelope w-6"></i><span class="ml-3">Messages</span><span class="ml-auto bg-primary text-white text-xs px-2 py-1 rounded-full font-bold">5</span></div>
-                    <div class="sidebar-item" data-section="analytics"><i class="fas fa-chart-line w-6"></i><span class="ml-3">Analytics</span></div>
-                    <div class="sidebar-item" data-section="settings"><i class="fas fa-cog w-6"></i><span class="ml-3">Settings</span></div>
-                </div>
-                <!-- admin profile card -->
-                <div class="mt-8 pt-6 border-t border-primary/10 dark:border-gray-700">
-                    <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center"><i class="fas fa-user-tie text-primary text-xl"></i></div>
-                        <div>
-                            <p class="font-bold dark:text-white text-base">Alex Rivera</p>
-                            <p class="text-xs text-neutral-dark/70 dark:text-gray-400">event manager</p>
-                            <span class="text-xs text-primary font-semibold">full access</span>
+        <!-- MAIN GRID: sidebar + content (7 sections) -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <!-- SIDEBAR (7 items) -->
+            <div class="lg:col-span-3">
+                <div class="dashboard-card p-6">
+                    <div class="flex flex-col space-y-1">
+                        <div class="sidebar-item active" data-section="overview"><i class="fas fa-chart-pie w-6"></i><span class="ml-3">Overview</span></div>
+                        <div class="sidebar-item" data-section="teams"><i class="fas fa-users w-6"></i><span class="ml-3">Teams</span></div>
+                        <div class="sidebar-item" data-section="events"><i class="fas fa-calendar-alt w-6"></i><span class="ml-3">Events</span></div>
+                        <div class="sidebar-item" data-section="bookings"><i class="fas fa-shopping-cart w-6"></i><span class="ml-3">Bookings</span></div>
+                        <div class="sidebar-item" data-section="messages"><i class="fas fa-envelope w-6"></i><span class="ml-3">Messages</span><span class="ml-auto bg-primary text-white text-xs px-2 py-1 rounded-full font-bold">5</span></div>
+                        <div class="sidebar-item" data-section="analytics"><i class="fas fa-chart-line w-6"></i><span class="ml-3">Analytics</span></div>
+                        <div class="sidebar-item" data-section="settings"><i class="fas fa-cog w-6"></i><span class="ml-3">Settings</span></div>
+                    </div>
+                    <!-- admin profile card -->
+                    <div class="mt-8 pt-6 border-t border-primary/10 dark:border-gray-700">
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center"><i class="fas fa-user-tie text-primary text-xl"></i></div>
+                            <div>
+                                <p class="font-bold dark:text-white text-base">Alex Rivera</p>
+                                <p class="text-xs text-neutral-dark/70 dark:text-gray-400">event manager</p>
+                                <span class="text-xs text-primary font-semibold">full access</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- CONTENT PANELS (7 sections) -->
-        <div class="lg:col-span-9 space-y-6">
+            <!-- CONTENT PANELS (7 sections) -->
+            <div class="lg:col-span-9 space-y-6">
 
-            <!-- 1. OVERVIEW -->
-            <div id="overview-section" class="dashboard-section block">
-                <div class="dashboard-card">
-                    <h2 class="text-2xl font-display font-bold mb-6 flex items-center"><i class="fas fa-chart-pie text-primary mr-3 text-2xl"></i>overview & statistics</h2>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
-                        <div class="stat-card"><div class="flex justify-between"><div><p class="text-sm text-neutral-dark/60">active teams</p><p class="text-3xl font-bold dark:text-white">24</p><p class="text-xs text-green-600 mt-2">↑ 4 this week</p></div><i class="fas fa-users text-primary text-2xl"></i></div></div>
-                        <div class="stat-card"><div class="flex justify-between"><div><p class="text-sm text-neutral-dark/60">upcoming events</p><p class="text-3xl font-bold dark:text-white">18</p><p class="text-xs text-green-600 mt-2">+5 confirmed</p></div><i class="fas fa-calendar text-primary text-2xl"></i></div></div>
-                        <div class="stat-card"><div class="flex justify-between"><div><p class="text-sm text-neutral-dark/60">participants</p><p class="text-3xl font-bold dark:text-white">342</p><p class="text-xs text-green-600 mt-2">↑ 12%</p></div><i class="fas fa-user text-primary text-2xl"></i></div></div>
-                        <div class="stat-card"><div class="flex justify-between"><div><p class="text-sm text-neutral-dark/60">revenue (MTD)</p><p class="text-3xl font-bold dark:text-white">$48.2k</p><p class="text-xs text-green-600 mt-2">↑ 19%</p></div><i class="fas fa-dollar-sign text-primary text-2xl"></i></div></div>
-                    </div>
-                    
-                    <!-- mini charts - FIXED MOBILE ALIGNMENT -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="bg-neutral-light/30 dark:bg-gray-800/30 p-4 sm:p-5 rounded-2xl">
-                            <h3 class="font-bold mb-3 text-sm sm:text-base">weekly bookings</h3>
-                            <div class="chart-container" style="height: 200px; min-height: 200px;">
-                                <canvas id="bookingsChart"></canvas>
+                <!-- 1. OVERVIEW -->
+                <div id="overview-section" class="dashboard-section block">
+                    <div class="dashboard-card">
+                        <h2 class="text-2xl font-display font-bold mb-6 flex items-center"><i class="fas fa-chart-pie text-primary mr-3 text-2xl"></i>Overview & Statistics</h2>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
+                            <div class="stat-card"><div class="flex justify-between"><div><p class="text-sm text-neutral-dark/60">active teams</p><p class="text-3xl font-bold dark:text-white">24</p><p class="text-xs text-green-600 mt-2">↑ 4 this week</p></div><i class="fas fa-users text-primary text-2xl"></i></div></div>
+                            <div class="stat-card"><div class="flex justify-between"><div><p class="text-sm text-neutral-dark/60">upcoming events</p><p class="text-3xl font-bold dark:text-white">18</p><p class="text-xs text-green-600 mt-2">+5 confirmed</p></div><i class="fas fa-calendar text-primary text-2xl"></i></div></div>
+                            <div class="stat-card"><div class="flex justify-between"><div><p class="text-sm text-neutral-dark/60">participants</p><p class="text-3xl font-bold dark:text-white">342</p><p class="text-xs text-green-600 mt-2">↑ 12%</p></div><i class="fas fa-user text-primary text-2xl"></i></div></div>
+                            <div class="stat-card"><div class="flex justify-between"><div><p class="text-sm text-neutral-dark/60">revenue (MTD)</p><p class="text-3xl font-bold dark:text-white">$48.2k</p><p class="text-xs text-green-600 mt-2">↑ 19%</p></div><i class="fas fa-dollar-sign text-primary text-2xl"></i></div></div>
+                        </div>
+                        
+                        <!-- mini charts -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="bg-neutral-light/30 dark:bg-gray-800/30 p-4 sm:p-5 rounded-2xl">
+                                <h3 class="font-bold mb-3 text-sm sm:text-base">weekly bookings</h3>
+                                <div class="chart-container" style="height: 200px; min-height: 200px;">
+                                    <canvas id="bookingsChart"></canvas>
+                                </div>
+                            </div>
+                            <div class="bg-neutral-light/30 dark:bg-gray-800/30 p-4 sm:p-5 rounded-2xl">
+                                <h3 class="font-bold mb-3 text-sm sm:text-base">activity types</h3>
+                                <div class="chart-container" style="height: 200px; min-height: 200px;">
+                                    <canvas id="activitiesChart"></canvas>
+                                </div>
                             </div>
                         </div>
-                        <div class="bg-neutral-light/30 dark:bg-gray-800/30 p-4 sm:p-5 rounded-2xl">
-                            <h3 class="font-bold mb-3 text-sm sm:text-base">activity types</h3>
-                            <div class="chart-container" style="height: 200px; min-height: 200px;">
-                                <canvas id="activitiesChart"></canvas>
+                        
+                        <!-- recent activity -->
+                        <div class="mt-8">
+                            <h3 class="font-bold text-lg mb-4 dark:text-white">recent activity</h3>
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between p-4 bg-neutral-light/30 dark:bg-gray-800 rounded-xl">
+                                    <div class="flex items-center gap-3">
+                                        <i class="fas fa-calendar-check text-primary"></i>
+                                        <div>
+                                            <p class="font-semibold dark:text-white">new booking #TB-432</p>
+                                            <p class="text-xs text-neutral-dark/70 dark:text-gray-300">TechCorp · 15 participants · 10 min ago</p>
+                                        </div>
+                                    </div>
+                                    <span class="text-primary dark:text-primary-light text-sm hover:underline cursor-pointer">view</span>
+                                </div>
+                                
+                                <div class="flex items-center justify-between p-4 bg-neutral-light/30 dark:bg-gray-800 rounded-xl">
+                                    <div class="flex items-center gap-3">
+                                        <i class="fas fa-user-plus text-primary"></i>
+                                        <div>
+                                            <p class="font-semibold dark:text-white">new team registered</p>
+                                            <p class="text-xs text-neutral-dark/70 dark:text-gray-300">InnovateLabs · 2h ago</p>
+                                        </div>
+                                    </div>
+                                    <span class="text-primary dark:text-primary-light text-sm hover:underline cursor-pointer">view</span>
+                                </div>
+                                
+                                <div class="flex items-center justify-between p-4 bg-neutral-light/30 dark:bg-gray-800 rounded-xl">
+                                    <div class="flex items-center gap-3">
+                                        <i class="fas fa-trophy text-primary"></i>
+                                        <div>
+                                            <p class="font-semibold dark:text-white">event completed</p>
+                                            <p class="text-xs text-neutral-dark/70 dark:text-gray-300">Scavenger Hunt · 5h ago</p>
+                                        </div>
+                                    </div>
+                                    <span class="text-primary dark:text-primary-light text-sm hover:underline cursor-pointer">view</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    
-                    <!-- recent activity -->
-                    <div class="mt-8">
-                        <h3 class="font-bold text-lg mb-4 dark:text-white">recent activity</h3>
+                </div>
+
+                <!-- 2. TEAMS MANAGEMENT -->
+                <div id="teams-section" class="dashboard-section hidden">
+                    <div class="dashboard-card">
+                        <h2 class="text-2xl font-display font-bold mb-6 flex items-center"><i class="fas fa-users text-primary mr-3 text-2xl"></i>Team Management</h2>
+                        <div class="flex flex-wrap gap-3 mb-6">
+                            <button class="px-5 py-2 rounded-full bg-primary text-white font-bold">all teams</button>
+                            <button class="px-5 py-2 rounded-full border border-primary/30 hover:bg-primary/10">corporate</button>
+                            <button class="px-5 py-2 rounded-full border border-primary/30 hover:bg-primary/10">startups</button>
+                            <button class="px-5 py-2 rounded-full border border-primary/30 hover:bg-primary/10">non-profit</button>
+                            <input type="text" placeholder="search teams..." class="admin-input max-w-xs ml-auto">
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full"><thead class="table-header"><tr><th class="text-left p-3">team</th><th class="text-left p-3">size</th><th class="text-left p-3">status</th><th class="text-left p-3 hidden md:table-cell">joined</th><th class="text-left p-3">action</th></tr></thead>
+                            <tbody>
+                                <tr class="table-row"><td class="p-3"><div><p class="font-semibold">TechCorp Solutions</p><span class="text-xs text-neutral-dark/60">corporate</span></div></td><td class="p-3">24</td><td class="p-3"><span class="status-badge status-active">active</span></td><td class="p-3 hidden md:table-cell">jan 2026</td><td class="p-3"><button class="text-primary text-sm hover:underline">manage</button></td></tr>
+                                <tr class="table-row"><td class="p-3"><div><p class="font-semibold">InnovateLabs</p><span class="text-xs text-neutral-dark/60">startup</span></div></td><td class="p-3">8</td><td class="p-3"><span class="status-badge status-active">active</span></td><td class="p-3 hidden md:table-cell">feb 2026</td><td class="p-3"><button class="text-primary text-sm hover:underline">manage</button></td></tr>
+                                <tr class="table-row"><td class="p-3"><div><p class="font-semibold">CreativeStudio</p><span class="text-xs text-neutral-dark/60">agency</span></div></td><td class="p-3">12</td><td class="p-3"><span class="status-badge status-active">active</span></td><td class="p-3 hidden md:table-cell">mar 2026</td><td class="p-3"><button class="text-primary text-sm hover:underline">manage</button></td></tr>
+                                <tr class="table-row"><td class="p-3"><div><p class="font-semibold">GreenFuture</p><span class="text-xs text-neutral-dark/60">non-profit</span></div></td><td class="p-3">15</td><td class="p-3"><span class="status-badge status-pending">pending</span></td><td class="p-3 hidden md:table-cell">apr 2026</td><td class="p-3"><button class="text-primary text-sm hover:underline">verify</button></td></tr>
+                            </tbody></table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. EVENTS MANAGEMENT -->
+                <div id="events-section" class="dashboard-section hidden">
+                    <div class="dashboard-card">
+                        <h2 class="text-2xl font-display font-bold mb-6 flex items-center"><i class="fas fa-calendar-alt text-primary mr-3 text-2xl"></i>Events</h2>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="bg-neutral-light/30 p-6 rounded-2xl"><h3 class="font-bold text-lg mb-3">upcoming events</h3><div class="space-y-2"><div class="flex justify-between"><span>Escape Room</span><span class="font-semibold">4</span></div><div class="flex justify-between"><span>Scavenger Hunt</span><span class="font-semibold">6</span></div><div class="flex justify-between"><span>Cooking Class</span><span class="font-semibold">3</span></div><div class="flex justify-between"><span>Trivia</span><span class="font-semibold">5</span></div></div><button class="w-full mt-5 py-2 bg-primary/10 text-primary rounded-full font-semibold hover:bg-primary hover:text-white">manage events</button></div>
+                            <div class="bg-neutral-light/30 p-6 rounded-2xl"><h3 class="font-bold text-lg mb-3">recent events</h3><div class="space-y-2"><div class="flex justify-between"><span>completed</span><span class="font-semibold">12</span></div><div class="flex justify-between"><span>cancelled</span><span class="font-semibold">2</span></div><div class="flex justify-between"><span>rescheduled</span><span class="font-semibold">1</span></div></div><button class="w-full mt-5 py-2 bg-primary/10 text-primary rounded-full font-semibold hover:bg-primary hover:text-white">view history</button></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. BOOKINGS -->
+                <div id="bookings-section" class="dashboard-section hidden">
+                    <div class="dashboard-card">
+                        <h2 class="text-2xl font-display font-bold mb-6 flex items-center"><i class="fas fa-shopping-cart text-primary mr-3 text-2xl"></i>Bookings</h2>
+                        
+                        <!-- Filter buttons -->
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <button class="px-4 py-2 rounded-full bg-primary text-white text-sm">all</button>
+                            <button class="px-4 py-2 rounded-full border border-primary/30 hover:bg-primary/10 text-sm">confirmed</button>
+                            <button class="px-4 py-2 rounded-full border border-primary/30 hover:bg-primary/10 text-sm">pending</button>
+                            <button class="px-4 py-2 rounded-full border border-primary/30 hover:bg-primary/10 text-sm">completed</button>
+                        </div>
+                        
+                        <!-- Responsive table -->
+                        <div class="overflow-x-auto">
+                            <table class="w-full min-w-[500px] md:min-w-full">
+                                <thead class="table-header">
+                                    <tr>
+                                        <th class="p-3 text-left">ID</th>
+                                        <th class="p-3 text-left">team</th>
+                                        <th class="p-3 text-left">event</th>
+                                        <th class="p-3 text-left">amount</th>
+                                        <th class="p-3 text-left">status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="table-row">
+                                        <td class="p-3 font-medium">#TB-102</td>
+                                        <td class="p-3">TechCorp</td>
+                                        <td class="p-3">Escape Room</td>
+                                        <td class="p-3">$450</td>
+                                        <td class="p-3"><span class="status-badge status-active">confirmed</span></td>
+                                    </tr>
+                                    <tr class="table-row">
+                                        <td class="p-3 font-medium">#TB-109</td>
+                                        <td class="p-3">InnovateLabs</td>
+                                        <td class="p-3">Scavenger Hunt</td>
+                                        <td class="p-3">$399</td>
+                                        <td class="p-3"><span class="status-badge status-active">confirmed</span></td>
+                                    </tr>
+                                    <tr class="table-row">
+                                        <td class="p-3 font-medium">#TB-115</td>
+                                        <td class="p-3">CreativeStudio</td>
+                                        <td class="p-3">Cooking Class</td>
+                                        <td class="p-3">$525</td>
+                                        <td class="p-3"><span class="status-badge status-pending">pending</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <!-- Mobile hint -->
+                        <p class="text-xs text-center text-neutral-dark/50 dark:text-gray-500 mt-3 sm:hidden">← scroll horizontally →</p>
+                    </div>
+                </div>
+
+                <!-- 5. MESSAGES -->
+                <div id="messages-section" class="dashboard-section hidden">
+                    <div class="dashboard-card">
+                        <h2 class="text-2xl font-display font-bold mb-6 flex items-center"><i class="fas fa-envelope text-primary mr-3 text-2xl"></i>Inbox <span class="ml-4 bg-primary text-white text-sm px-3 py-1 rounded-full">5 unread</span></h2>
                         <div class="space-y-3">
-                            <div class="flex items-center justify-between p-4 bg-neutral-light/30 dark:bg-gray-800 rounded-xl">
-                                <div class="flex items-center gap-3">
-                                    <i class="fas fa-calendar-check text-primary"></i>
-                                    <div>
-                                        <p class="font-semibold dark:text-white">new booking #TB-432</p>
-                                        <p class="text-xs text-neutral-dark/70 dark:text-gray-300">TechCorp · 15 participants · 10 min ago</p>
-                                    </div>
-                                </div>
-                                <span class="text-primary dark:text-primary-light text-sm hover:underline cursor-pointer">view</span>
-                            </div>
-                            
-                            <div class="flex items-center justify-between p-4 bg-neutral-light/30 dark:bg-gray-800 rounded-xl">
-                                <div class="flex items-center gap-3">
-                                    <i class="fas fa-user-plus text-primary"></i>
-                                    <div>
-                                        <p class="font-semibold dark:text-white">new team registered</p>
-                                        <p class="text-xs text-neutral-dark/70 dark:text-gray-300">InnovateLabs · 2h ago</p>
-                                    </div>
-                                </div>
-                                <span class="text-primary dark:text-primary-light text-sm hover:underline cursor-pointer">view</span>
-                            </div>
-                            
-                            <div class="flex items-center justify-between p-4 bg-neutral-light/30 dark:bg-gray-800 rounded-xl">
-                                <div class="flex items-center gap-3">
-                                    <i class="fas fa-trophy text-primary"></i>
-                                    <div>
-                                        <p class="font-semibold dark:text-white">event completed</p>
-                                        <p class="text-xs text-neutral-dark/70 dark:text-gray-300">Scavenger Hunt · 5h ago</p>
-                                    </div>
-                                </div>
-                                <span class="text-primary dark:text-primary-light text-sm hover:underline cursor-pointer">view</span>
-                            </div>
+                            <div class="flex items-start gap-3 p-4 bg-neutral-light/30 rounded-xl"><i class="fas fa-user-circle text-primary text-xl"></i><div><p class="font-semibold">Sarah Johnson</p><p class="text-sm">booking extension request · TechCorp</p><span class="text-xs text-neutral-dark/60">2h ago</span></div></div>
+                            <div class="flex items-start gap-3 p-4 bg-neutral-light/30 rounded-xl"><i class="fas fa-user-circle text-primary text-xl"></i><div><p class="font-semibold">Michael Chen</p><p class="text-sm">new team registration · InnovateLabs</p><span class="text-xs text-neutral-dark/60">yesterday</span></div></div>
+                            <div class="flex items-start gap-3 p-4 bg-neutral-light/30 rounded-xl"><i class="fas fa-user-circle text-primary text-xl"></i><div><p class="font-semibold">Emma Watson</p><p class="text-sm">custom package inquiry</p><span class="text-xs text-neutral-dark/60">3d ago</span></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6. ANALYTICS -->
+                <div id="analytics-section" class="dashboard-section hidden">
+                    <div class="dashboard-card">
+                        <h2 class="text-2xl font-display font-bold mb-6 flex items-center"><i class="fas fa-chart-line text-primary mr-3 text-2xl"></i>Analytics</h2>
+                        <div class="flex gap-2 mb-6"><button class="px-5 py-2 rounded-full bg-primary text-white">7d</button><button class="px-5 py-2 rounded-full border">30d</button><button class="px-5 py-2 rounded-full border">custom</button></div>
+                        <div class="grid sm:grid-cols-2 gap-4"><div class="stat-card p-4"><p class="text-sm">total revenue</p><p class="text-2xl font-bold">$48.2k</p><span class="text-green-600 text-xs">+14%</span></div><div class="stat-card p-4"><p class="text-sm">avg. booking</p><p class="text-2xl font-bold">$428</p><span class="text-green-600 text-xs">+8%</span></div></div>
+                        <div class="mt-6 space-y-2"><div class="flex justify-between p-4 bg-neutral-light/30 rounded-xl"><span>monthly report april 2026</span><button class="text-primary">download PDF</button></div><div class="flex justify-between p-4 bg-neutral-light/30 rounded-xl"><span>q1 performance summary</span><button class="text-primary">download CSV</button></div></div>
+                    </div>
+                </div>
+
+                <!-- 7. SETTINGS -->
+                <div id="settings-section" class="dashboard-section hidden">
+                    <div class="dashboard-card">
+                        <h2 class="text-2xl font-display font-bold mb-6 flex items-center"><i class="fas fa-cog text-primary mr-3 text-2xl"></i>Settings</h2>
+                        <div class="space-y-6">
+                            <div><h3 class="font-bold text-lg mb-3">company info</h3><div class="grid md:grid-cols-2 gap-4"><input class="admin-input" value="EVENTRO"><input class="admin-input" value="hello@eventro.com"></div></div>
+                            <div><h3 class="font-bold text-lg mb-3">payment gateways</h3><div class="bg-neutral-light/30 p-4 rounded-2xl space-y-3"><div class="flex justify-between"><span>stripe</span><label class="toggle-switch"><input type="checkbox" checked><span class="toggle-slider"></span></label></div><div class="flex justify-between"><span>paypal</span><label class="toggle-switch"><input type="checkbox"><span class="toggle-slider"></span></label></div></div></div>
+                            <button class="admin-btn">save changes</button>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <!-- 2. TEAMS MANAGEMENT -->
-            <div id="teams-section" class="dashboard-section hidden">
-                <div class="dashboard-card">
-                    <h2 class="text-2xl font-display font-bold mb-6 flex items-center"><i class="fas fa-users text-primary mr-3 text-2xl"></i>team management</h2>
-                    <div class="flex flex-wrap gap-3 mb-6">
-                        <button class="px-5 py-2 rounded-full bg-primary text-white font-bold">all teams</button>
-                        <button class="px-5 py-2 rounded-full border border-primary/30 hover:bg-primary/10">corporate</button>
-                        <button class="px-5 py-2 rounded-full border border-primary/30 hover:bg-primary/10">startups</button>
-                        <button class="px-5 py-2 rounded-full border border-primary/30 hover:bg-primary/10">non-profit</button>
-                        <input type="text" placeholder="search teams..." class="admin-input max-w-xs ml-auto">
-                    </div>
-                    <div class="overflow-x-auto">
-                        <table class="w-full"><thead class="table-header"><tr><th class="text-left p-3">team</th><th class="text-left p-3">size</th><th class="text-left p-3">status</th><th class="text-left p-3 hidden md:table-cell">joined</th><th class="text-left p-3">action</th></tr></thead>
-                        <tbody>
-                            <tr class="table-row"><td class="p-3"><div><p class="font-semibold">TechCorp Solutions</p><span class="text-xs text-neutral-dark/60">corporate</span></div></td><td class="p-3">24</td><td class="p-3"><span class="status-badge status-active">active</span></td><td class="p-3 hidden md:table-cell">jan 2026</td><td class="p-3"><button class="text-primary text-sm hover:underline">manage</button></td></tr>
-                            <tr class="table-row"><td class="p-3"><div><p class="font-semibold">InnovateLabs</p><span class="text-xs text-neutral-dark/60">startup</span></div></td><td class="p-3">8</td><td class="p-3"><span class="status-badge status-active">active</span></td><td class="p-3 hidden md:table-cell">feb 2026</td><td class="p-3"><button class="text-primary text-sm hover:underline">manage</button></td></tr>
-                            <tr class="table-row"><td class="p-3"><div><p class="font-semibold">CreativeStudio</p><span class="text-xs text-neutral-dark/60">agency</span></div></td><td class="p-3">12</td><td class="p-3"><span class="status-badge status-active">active</span></td><td class="p-3 hidden md:table-cell">mar 2026</td><td class="p-3"><button class="text-primary text-sm hover:underline">manage</button></td></tr>
-                            <tr class="table-row"><td class="p-3"><div><p class="font-semibold">GreenFuture</p><span class="text-xs text-neutral-dark/60">non-profit</span></div></td><td class="p-3">15</td><td class="p-3"><span class="status-badge status-pending">pending</span></td><td class="p-3 hidden md:table-cell">apr 2026</td><td class="p-3"><button class="text-primary text-sm hover:underline">verify</button></td></tr>
-                        </tbody></table>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 3. EVENTS MANAGEMENT -->
-            <div id="events-section" class="dashboard-section hidden">
-                <div class="dashboard-card">
-                    <h2 class="text-2xl font-display font-bold mb-6 flex items-center"><i class="fas fa-calendar-alt text-primary mr-3 text-2xl"></i>events</h2>
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div class="bg-neutral-light/30 p-6 rounded-2xl"><h3 class="font-bold text-lg mb-3">upcoming events</h3><div class="space-y-2"><div class="flex justify-between"><span>Escape Room</span><span class="font-semibold">4</span></div><div class="flex justify-between"><span>Scavenger Hunt</span><span class="font-semibold">6</span></div><div class="flex justify-between"><span>Cooking Class</span><span class="font-semibold">3</span></div><div class="flex justify-between"><span>Trivia</span><span class="font-semibold">5</span></div></div><button class="w-full mt-5 py-2 bg-primary/10 text-primary rounded-full font-semibold hover:bg-primary hover:text-white">manage events</button></div>
-                        <div class="bg-neutral-light/30 p-6 rounded-2xl"><h3 class="font-bold text-lg mb-3">recent events</h3><div class="space-y-2"><div class="flex justify-between"><span>completed</span><span class="font-semibold">12</span></div><div class="flex justify-between"><span>cancelled</span><span class="font-semibold">2</span></div><div class="flex justify-between"><span>rescheduled</span><span class="font-semibold">1</span></div></div><button class="w-full mt-5 py-2 bg-primary/10 text-primary rounded-full font-semibold hover:bg-primary hover:text-white">view history</button></div>
-                    </div>
-                </div>
-            </div>
-
-          <!-- 4. BOOKINGS - FIXED MOBILE ALIGNMENT -->
-<div id="bookings-section" class="dashboard-section hidden">
-    <div class="dashboard-card">
-        <h2 class="text-2xl font-display font-bold mb-6 flex items-center"><i class="fas fa-shopping-cart text-primary mr-3 text-2xl"></i>bookings</h2>
-        
-        <!-- Filter buttons - responsive wrap -->
-        <div class="flex flex-wrap gap-2 mb-4">
-            <button class="px-4 py-2 rounded-full bg-primary text-white text-sm">all</button>
-            <button class="px-4 py-2 rounded-full border border-primary/30 hover:bg-primary/10 text-sm">confirmed</button>
-            <button class="px-4 py-2 rounded-full border border-primary/30 hover:bg-primary/10 text-sm">pending</button>
-            <button class="px-4 py-2 rounded-full border border-primary/30 hover:bg-primary/10 text-sm">completed</button>
         </div>
-        
-        <!-- Responsive table -->
-        <div class="overflow-x-auto">
-            <table class="w-full min-w-[500px] md:min-w-full">
-                <thead class="table-header">
-                    <tr>
-                        <th class="p-3 text-left">ID</th>
-                        <th class="p-3 text-left">team</th>
-                        <th class="p-3 text-left">event</th>
-                        <th class="p-3 text-left">amount</th>
-                        <th class="p-3 text-left">status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="table-row">
-                        <td class="p-3 font-medium">#TB-102</td>
-                        <td class="p-3">TechCorp</td>
-                        <td class="p-3">Escape Room</td>
-                        <td class="p-3">$450</td>
-                        <td class="p-3"><span class="status-badge status-active">confirmed</span></td>
-                    </tr>
-                    <tr class="table-row">
-                        <td class="p-3 font-medium">#TB-109</td>
-                        <td class="p-3">InnovateLabs</td>
-                        <td class="p-3">Scavenger Hunt</td>
-                        <td class="p-3">$399</td>
-                        <td class="p-3"><span class="status-badge status-active">confirmed</span></td>
-                    </tr>
-                    <tr class="table-row">
-                        <td class="p-3 font-medium">#TB-115</td>
-                        <td class="p-3">CreativeStudio</td>
-                        <td class="p-3">Cooking Class</td>
-                        <td class="p-3">$525</td>
-                        <td class="p-3"><span class="status-badge status-pending">pending</span></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        
-        <!-- Mobile hint (optional) -->
-        <p class="text-xs text-center text-neutral-dark/50 dark:text-gray-500 mt-3 sm:hidden">← scroll horizontally →</p>
+
+        <!-- Footer -->
+        <div class="mt-12 text-center text-sm text-neutral-dark/50 dark:text-gray-500 border-t border-primary/10 pt-6">EVENTRO · team building management dashboard</div>
     </div>
-</div>
-
-            <!-- 5. MESSAGES -->
-            <div id="messages-section" class="dashboard-section hidden">
-                <div class="dashboard-card">
-                    <h2 class="text-2xl font-display font-bold mb-6 flex items-center"><i class="fas fa-envelope text-primary mr-3 text-2xl"></i>inbox <span class="ml-4 bg-primary text-white text-sm px-3 py-1 rounded-full">5 unread</span></h2>
-                    <div class="space-y-3">
-                        <div class="flex items-start gap-3 p-4 bg-neutral-light/30 rounded-xl"><i class="fas fa-user-circle text-primary text-xl"></i><div><p class="font-semibold">Sarah Johnson</p><p class="text-sm">booking extension request · TechCorp</p><span class="text-xs text-neutral-dark/60">2h ago</span></div></div>
-                        <div class="flex items-start gap-3 p-4 bg-neutral-light/30 rounded-xl"><i class="fas fa-user-circle text-primary text-xl"></i><div><p class="font-semibold">Michael Chen</p><p class="text-sm">new team registration · InnovateLabs</p><span class="text-xs text-neutral-dark/60">yesterday</span></div></div>
-                        <div class="flex items-start gap-3 p-4 bg-neutral-light/30 rounded-xl"><i class="fas fa-user-circle text-primary text-xl"></i><div><p class="font-semibold">Emma Watson</p><p class="text-sm">custom package inquiry</p><span class="text-xs text-neutral-dark/60">3d ago</span></div></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 6. ANALYTICS -->
-            <div id="analytics-section" class="dashboard-section hidden">
-                <div class="dashboard-card">
-                    <h2 class="text-2xl font-display font-bold mb-6 flex items-center"><i class="fas fa-chart-line text-primary mr-3 text-2xl"></i>analytics</h2>
-                    <div class="flex gap-2 mb-6"><button class="px-5 py-2 rounded-full bg-primary text-white">7d</button><button class="px-5 py-2 rounded-full border">30d</button><button class="px-5 py-2 rounded-full border">custom</button></div>
-                    <div class="grid sm:grid-cols-2 gap-4"><div class="stat-card p-4"><p class="text-sm">total revenue</p><p class="text-2xl font-bold">$48.2k</p><span class="text-green-600 text-xs">+14%</span></div><div class="stat-card p-4"><p class="text-sm">avg. booking</p><p class="text-2xl font-bold">$428</p><span class="text-green-600 text-xs">+8%</span></div></div>
-                    <div class="mt-6 space-y-2"><div class="flex justify-between p-4 bg-neutral-light/30 rounded-xl"><span>monthly report april 2026</span><button class="text-primary">download PDF</button></div><div class="flex justify-between p-4 bg-neutral-light/30 rounded-xl"><span>q1 performance summary</span><button class="text-primary">download CSV</button></div></div>
-                </div>
-            </div>
-
-            <!-- 7. SETTINGS -->
-            <div id="settings-section" class="dashboard-section hidden">
-                <div class="dashboard-card">
-                    <h2 class="text-2xl font-display font-bold mb-6 flex items-center"><i class="fas fa-cog text-primary mr-3 text-2xl"></i>settings</h2>
-                    <div class="space-y-6">
-                        <div><h3 class="font-bold text-lg mb-3">company info</h3><div class="grid md:grid-cols-2 gap-4"><input class="admin-input" value="EVENTRO"><input class="admin-input" value="hello@eventro.com"></div></div>
-                        <div><h3 class="font-bold text-lg mb-3">payment gateways</h3><div class="bg-neutral-light/30 p-4 rounded-2xl space-y-3"><div class="flex justify-between"><span>stripe</span><label class="toggle-switch"><input type="checkbox" checked><span class="toggle-slider"></span></label></div><div class="flex justify-between"><span>paypal</span><label class="toggle-switch"><input type="checkbox"><span class="toggle-slider"></span></label></div></div></div>
-                        <button class="admin-btn">save changes</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <div class="mt-12 text-center text-sm text-neutral-dark/50 dark:text-gray-500 border-t border-primary/10 pt-6">EVENTRO · team building management dashboard</div>
 
     <!-- JavaScript -->
     <script>
@@ -554,9 +650,8 @@
                 });
             });
 
-            // Charts - FIXED with proper mobile sizing
+            // Charts
             if (document.getElementById('bookingsChart')) {
-                // Small screen optimization
                 const isMobile = window.innerWidth < 640;
                 
                 new Chart(document.getElementById('bookingsChart'), { 
@@ -580,16 +675,12 @@
                             x: {
                                 ticks: {
                                     maxRotation: isMobile ? 45 : 0,
-                                    font: {
-                                        size: isMobile ? 9 : 11
-                                    }
+                                    font: { size: isMobile ? 9 : 11 }
                                 }
                             },
                             y: {
                                 ticks: {
-                                    font: {
-                                        size: isMobile ? 9 : 11
-                                    }
+                                    font: { size: isMobile ? 9 : 11 }
                                 }
                             }
                         }
@@ -612,9 +703,7 @@
                                 position: isMobile ? 'bottom' : 'top',
                                 labels: {
                                     boxWidth: isMobile ? 8 : 12,
-                                    font: {
-                                        size: isMobile ? 9 : 11
-                                    }
+                                    font: { size: isMobile ? 9 : 11 }
                                 }
                             }
                         }
@@ -624,12 +713,6 @@
 
             // Save button demo
             document.querySelectorAll('.admin-btn').forEach(b => b.addEventListener('click', ()=>alert('saved (demo)')));
-
-            // Handle resize for charts
-            window.addEventListener('resize', function() {
-                // Simple resize handling - you could recreate charts here for more precision
-                console.log('window resized');
-            });
         })();
     </script>
 </body>
