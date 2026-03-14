@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en" dir="ltr" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us | GROWW TEM</title>
+    <title>About Us | Eventro</title>
     <link rel="icon" type="asset/jpeg" href="/assest/growwpark_logo.jpg">
     
     <!-- Tailwind CSS -->
@@ -138,6 +137,7 @@
         .dark .dropdown-item i { color: #6ca3bd; }
         [dir="rtl"] .dropdown-item i { margin-right:0; margin-left:0.75rem; }
         
+        /* Desktop Auth Icons - Two separate icons (login/signup) */
         .auth-icon-btn {
             width: 40px;
             height: 40px;
@@ -238,12 +238,52 @@
         .mobile-dropdown-item:hover { color:#6ca3bd; background:#E1D0B3; }
         .dark .mobile-dropdown-item:hover { color:#6ca3bd; background:#3a3a3a; }
         
-        .mobile-auth-icon {
-            width: 44px; height:44px; border-radius:50%; border:1px solid #E1D0B3; display:flex; align-items:center; justify-content:center; margin:0 auto; color:#1a1a1a;
+        /* Mobile Auth Buttons - Like reference (Login & Signup) */
+        .mobile-auth-btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: 0.3s;
+            text-align: center;
+            margin: 0.25rem;
+            border: 1px solid transparent;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
         }
-        .dark .mobile-auth-icon { border-color:#666666; color:#ffffff; }
-        .mobile-auth-icon:hover { background:#6ca3bd; color:white; border-color:#6ca3bd; }
-        .dark .mobile-auth-icon:hover { background:#6ca3bd; border-color:#6ca3bd; }
+        .mobile-auth-btn.login {
+            background: transparent;
+            border-color: #E1D0B3;
+            color: #1a1a1a;
+        }
+        .dark .mobile-auth-btn.login {
+            border-color: #666666;
+            color: #ffffff;
+        }
+        .mobile-auth-btn.login:hover {
+            background: #6ca3bd;
+            color: white;
+            border-color: #6ca3bd;
+        }
+        .dark .mobile-auth-btn.login:hover {
+            background: #6ca3bd;
+            color: white;
+            border-color: #6ca3bd;
+        }
+        .mobile-auth-btn.signup {
+            background: #6ca3bd;
+            color: white;
+        }
+        .dark .mobile-auth-btn.signup {
+            background: #6ca3bd;
+            color: #1a1a1a;
+        }
+        .mobile-auth-btn.signup:hover {
+            background: #4f7e94;
+        }
+        .dark .mobile-auth-btn.signup:hover {
+            background: #4f7e94;
+        }
         
         /* Footer social icons */
         .social-icon {
@@ -330,18 +370,17 @@
 </head>
 <body class="bg-white dark:bg-dark-bg">
 
-    <!-- ========== HEADER (exact copy from index) ========== -->
+    <!-- ========== HEADER (updated to Eventro + login/signup icons) ========== -->
     <nav class="fixed top-0 left-0 right-0 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-b border-neutral-light dark:border-gray-800">
         <div class="container mx-auto px-6">
             <div class="flex items-center justify-between h-20">
-                <!-- Logo -->
+                <!-- Logo – now EVENTRO (single word) -->
                 <a href="index.html" class="flex items-center space-x-2 group">
                     <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center transform group-hover:scale-105 transition-transform duration-300">
                         <i class="fas fa-users text-white text-lg"></i>
                     </div>
                     <div class="font-display text-2xl font-bold tracking-tight">
-                        <span class="text-neutral-dark dark:text-white">GROWW</span>
-                        <span class="text-primary dark:text-primary-light ml-1">TEM</span>
+                        <span class="text-neutral-dark dark:text-white">EVENTRO</span>
                     </div>
                 </a>
 
@@ -358,9 +397,9 @@
                                     <a href="home2.html" class="dropdown-item"><i class="fas fa-home"></i> Home 2</a>
                                 </div>
                             </div>
-                            <a href="about.html" class="nav-item"style="color: #6ca3bd; font-weight: 700;">About</a>
+                            <a href="about.html" class="nav-item" style="color: #6ca3bd; font-weight: 700;">About</a>
                             <a href="packages.html" class="nav-item">Packages</a>
-                            <a href="Service.html" class="nav-item">Services</a>
+                            <a href="service.html" class="nav-item">Services</a>
                             <a href="book.html" class="nav-item">Book Now</a>
                             <a href="contact.html" class="nav-item">Contact</a>
                             <div class="dropdown">
@@ -373,9 +412,15 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="register.html" class="auth-icon-btn" title="Login / Register">
-                            <i class="fas fa-user"></i>
-                        </a>
+                        <!-- Desktop Auth: two separate icons (Login & Signup) -->
+                        <div class="flex items-center gap-2 ml-4">
+                            <a href="login.html" class="auth-icon-btn" title="Login">
+                                <i class="fas fa-sign-in-alt"></i>
+                            </a>
+                            <a href="signup.html" class="auth-icon-btn" title="Sign Up">
+                                <i class="fas fa-user-plus"></i>
+                            </a>
+                        </div>
                     </div>
                     <div class="flex gap-2 ml-4 desktop-toggle-group">
                         <button id="theme-toggle" class="toggle-btn" title="Toggle theme"><i class="fas fa-moon"></i><i class="fas fa-sun hidden"></i></button>
@@ -391,7 +436,7 @@
         </div>
     </nav>
     
-    <!-- Mobile Menu -->
+    <!-- Mobile Menu – with Login & Signup buttons (like reference) -->
     <div id="mobile-menu" class="mobile-menu xl:hidden fixed top-20 left-0 right-0 z-40 bg-white dark:bg-dark-card shadow-lg">
         <div class="container mx-auto px-6">
             <div class="mobile-dropdown">
@@ -404,9 +449,9 @@
                     <a href="home2.html" class="mobile-dropdown-item"><i class="fas fa-home mr-2"></i>Home 2</a>
                 </div>
             </div>
-            <a href="about.html" class="mobile-menu-item"style="background: rgba(108,163,189,0.1); color: #6ca3bd; border-left: 3px solid #6ca3bd; font-weight: 600;">About</a>
+            <a href="about.html" class="mobile-menu-item" style="background: rgba(108,163,189,0.1); color: #6ca3bd; border-left: 3px solid #6ca3bd; font-weight: 600;">About</a>
             <a href="packages.html" class="mobile-menu-item">Packages</a>
-            <a href="Service.html" class="mobile-menu-item">Services</a>
+            <a href="service.html" class="mobile-menu-item">Services</a>
             <a href="book.html" class="mobile-menu-item">Book Now</a>
             <a href="contact.html" class="mobile-menu-item">Contact</a>
             <div class="mobile-dropdown">
@@ -419,10 +464,10 @@
                     <a href="client.html" class="mobile-dropdown-item"><i class="fas fa-user mr-2"></i>Client</a>
                 </div>
             </div>
-            <div class="flex justify-center p-6">
-                <a href="register.html" class="mobile-auth-icon">
-                    <i class="fas fa-user text-xl"></i>
-                </a>
+            <!-- Mobile Auth Buttons: Login & Signup -->
+            <div class="flex flex-col sm:flex-row gap-3 p-6">
+                <a href="login.html" class="mobile-auth-btn login flex-1 text-center">Login</a>
+                <a href="signup.html" class="mobile-auth-btn signup flex-1 text-center">Sign Up</a>
             </div>
             <div class="flex justify-center gap-3 p-6 border-t border-gray-200 dark:border-gray-800">
                 <button id="theme-toggle-mobile" class="toggle-btn"><i class="fas fa-moon"></i><i class="fas fa-sun hidden"></i></button>
@@ -499,7 +544,7 @@
                     </p>
                     <div class="bg-primary/5 dark:bg-primary/10 p-5 rounded-xl border-l-4 border-primary mt-4">
                         <p class="text-neutral-dark/80 dark:text-gray-200 font-medium italic">
-                            "In 2020, GROWW TEM was born with a simple mission: help teams build real connections through meaningful experiences."
+                            "In 2020, EVENTRO was born with a simple mission: help teams build real connections through meaningful experiences."
                         </p>
                     </div>
                 </div>
@@ -586,7 +631,7 @@
                 Meet The Team
             </span>
             <h2 class="text-4xl md:text-5xl font-display font-bold mb-6 text-neutral-dark dark:text-white">
-                The Faces Behind <span class="text-primary">GROWW TEM</span>
+                The Faces Behind <span class="text-primary">EVENTRO</span>
             </h2>
             <p class="text-lg text-neutral-dark/70 dark:text-gray-300">
                 A passionate group of facilitators dedicated to building stronger, more connected teams.
@@ -680,7 +725,7 @@
         <section class="py-20 bg-primary dark:bg-primary">
             <div class="container mx-auto px-6 text-center">
                 <i class="fas fa-quote-right text-6xl text-white/30 mb-6"></i>
-                <p class="text-2xl md:text-3xl font-display font-medium text-white max-w-3xl mx-auto leading-relaxed">"GROWW TEM didn't just run an activity—they understood our team's dynamics and crafted a session that brought us closer. Months later, we still collaborate better."</p>
+                <p class="text-2xl md:text-3xl font-display font-medium text-white max-w-3xl mx-auto leading-relaxed">"EVENTRO didn't just run an activity—they understood our team's dynamics and crafted a session that brought us closer. Months later, we still collaborate better."</p>
                 <div class="mt-8 flex items-center justify-center gap-4">
                     <img src="/assest/tm1.jpg" class="w-16 h-16 rounded-full object-cover border-2 border-white" alt="client">
                     <div class="text-left text-white">
@@ -708,14 +753,14 @@
         </section>
     </main>
 
-    <!-- ========== FOOTER (exact copy from index) ========== -->
+    <!-- ========== FOOTER (updated to Eventro) ========== -->
     <footer class="py-16 bg-white dark:bg-dark-card border-t-2 border-gray-200 dark:border-gray-800">
         <div class="container mx-auto px-6">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
                 <div class="text-center md:text-left">
                     <div class="flex items-center justify-center md:justify-start gap-2 mb-6">
                         <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center"><i class="fas fa-users text-white text-lg"></i></div>
-                        <span class="font-display text-2xl font-bold"><span class="text-neutral-dark dark:text-white">GROWW</span><span class="text-primary dark:text-primary-light ml-1">TEM</span></span>
+                        <span class="font-display text-2xl font-bold"><span class="text-neutral-dark dark:text-white">EVENTRO</span></span>
                     </div>
                     <p class="text-base text-neutral-dark/80 dark:text-gray-300 mb-6 font-medium font-alt">Corporate team building and event planning. Building stronger teams through connection and collaboration.</p>
                     <div class="flex justify-center md:justify-start gap-4">
@@ -730,7 +775,7 @@
                         <li><a href="index.html" class="hover:text-primary dark:hover:text-primary-light transition text-neutral-dark/80 dark:text-gray-300 font-medium font-alt">Home</a></li>
                         <li><a href="about.html" class="hover:text-primary dark:hover:text-primary-light transition text-neutral-dark/80 dark:text-gray-300 font-medium font-alt">About Us</a></li>
                         <li><a href="packages.html" class="hover:text-primary dark:hover:text-primary-light transition text-neutral-dark/80 dark:text-gray-300 font-medium font-alt">Packages</a></li>
-                        <li><a href="activities.html" class="hover:text-primary dark:hover:text-primary-light transition text-neutral-dark/80 dark:text-gray-300 font-medium font-alt">Services</a></li>
+                        <li><a href="service.html" class="hover:text-primary dark:hover:text-primary-light transition text-neutral-dark/80 dark:text-gray-300 font-medium font-alt">Services</a></li>
                         <li><a href="book.html" class="hover:text-primary dark:hover:text-primary-light transition text-neutral-dark/80 dark:text-gray-300 font-medium font-alt">Book Now</a></li>
                         <li><a href="contact.html" class="hover:text-primary dark:hover:text-primary-light transition text-neutral-dark/80 dark:text-gray-300 font-medium font-alt">Contact</a></li>
                     </ul>
@@ -750,13 +795,13 @@
                     <ul class="space-y-3 text-base">
                         <li class="flex items-center justify-center md:justify-start gap-2 text-neutral-dark/80 dark:text-gray-300 font-medium font-alt"><i class="fas fa-map-marker-alt text-primary"></i><span>123 Business Ave, Suite 100, NYC</span></li>
                         <li class="flex items-center justify-center md:justify-start gap-2 text-neutral-dark/80 dark:text-gray-300 font-medium font-alt"><i class="fas fa-phone-alt text-primary"></i><span>+1 (212) 555-4567</span></li>
-                        <li class="flex items-center justify-center md:justify-start gap-2 text-neutral-dark/80 dark:text-gray-300 font-medium font-alt"><i class="fas fa-envelope text-primary"></i><span>hello@growwteam.com</span></li>
+                        <li class="flex items-center justify-center md:justify-start gap-2 text-neutral-dark/80 dark:text-gray-300 font-medium font-alt"><i class="fas fa-envelope text-primary"></i><span>hello@eventro.com</span></li>
                         <li class="flex items-center justify-center md:justify-start gap-2 text-neutral-dark/80 dark:text-gray-300 font-medium font-alt"><i class="fas fa-clock text-primary"></i><span>Mon-Fri: 9am - 6pm</span></li>
                     </ul>
                 </div>
             </div>
             <div class="border-t-2 border-primary/10 dark:border-gray-700 mt-12 pt-8 text-center">
-                <p class="text-sm text-neutral-dark/70 dark:text-gray-400 font-medium font-alt">© 2026 GROWW TEM. All rights reserved. Corporate team building & event planning.</p>
+                <p class="text-sm text-neutral-dark/70 dark:text-gray-400 font-medium font-alt">© 2026 EVENTRO. All rights reserved. Corporate team building & event planning.</p>
             </div>
         </div>
     </footer>
