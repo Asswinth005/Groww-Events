@@ -147,6 +147,48 @@
             box-shadow: 0 0 0 3px rgba(108,163,189,0.25);
         }
 
+        /* Password wrapper for eye icon */
+        .password-wrapper {
+            position: relative;
+            width: 100%;
+        }
+        .password-wrapper .login-input {
+            padding-right: 3rem;
+        }
+        .password-toggle {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            color: #6ca3bd;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            transition: color 0.2s ease;
+        }
+        .dark .password-toggle {
+            color: #8cb9d0;
+        }
+        .password-toggle:hover {
+            color: #4f7e94;
+        }
+        .dark .password-toggle:hover {
+            color: #6ca3bd;
+        }
+        [dir="rtl"] .password-toggle {
+            right: auto;
+            left: 1rem;
+        }
+        [dir="rtl"] .password-wrapper .login-input {
+            padding-right: 1.2rem;
+            padding-left: 3rem;
+        }
+
         /* PRIMARY BUTTON — exactly like GROWW‑TEM .btn-primary */
         .adventure-btn {
             background: #6ca3bd;               /* primary */
@@ -317,9 +359,9 @@
                     <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center transform group-hover:scale-105 transition-transform duration-300">
                         <i class="fas fa-users text-white text-lg"></i>
                     </div>
-                    <div>
-                        <span class="text-2xl font-display font-bold tracking-tight text-neutral-dark dark:text-white">EVENTRO</span>
-                    </div>
+                    <div class="font-display text-2xl font-bold tracking-tight">
+    <span class="text-primary dark:text-primary-light">EVENTRO</span>
+</div>
                 </a>
                 <h1 class="welcome-title">Welcome Back</h1>
             </div>
@@ -334,13 +376,16 @@
                     <input type="email" name="email" placeholder="Email address" required
                            class="login-input text-sm md:text-base">
                 </div>
-                <!-- password -->
-                <div class="relative">
+                <!-- password with eye icon -->
+                <div class="relative password-wrapper">
                     <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-primary dark:text-primary-light input-icon">
                         <i class="fas fa-lock w-5 text-sm"></i>
                     </span>
-                    <input type="password" name="password" placeholder="Password" required
+                    <input type="password" name="password" id="passwordInput" placeholder="Password" required
                            class="login-input text-sm md:text-base">
+                    <button type="button" id="togglePassword" class="password-toggle" title="Show/Hide password">
+                        <i class="fas fa-eye"></i>
+                    </button>
                 </div>
 
                 <!-- remember + forgot -->
@@ -466,6 +511,25 @@
                 rtlBtn.addEventListener('click', (e) => {
                     e.preventDefault();
                     setRTL(document.documentElement.dir !== 'rtl');
+                });
+            }
+
+            // ---------- PASSWORD TOGGLE (eye icon) ----------
+            const togglePasswordBtn = document.getElementById('togglePassword');
+            const passwordInput = document.getElementById('passwordInput');
+            
+            if (togglePasswordBtn && passwordInput) {
+                togglePasswordBtn.addEventListener('click', function() {
+                    // Toggle the type attribute
+                    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                    passwordInput.setAttribute('type', type);
+                    
+                    // Toggle the eye icon
+                    const eyeIcon = this.querySelector('i');
+                    if (eyeIcon) {
+                        eyeIcon.classList.toggle('fa-eye');
+                        eyeIcon.classList.toggle('fa-eye-slash');
+                    }
                 });
             }
 
