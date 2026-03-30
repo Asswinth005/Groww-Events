@@ -133,29 +133,79 @@
         .toggle-btn.active { background: #6ca3bd; color: white; }
         .dark .toggle-btn.active { background: #8cb9d0; }
         
-        /* logout button in header */
-        .logout-btn-header {
+        /* profile icon in header */
+        .profile-icon-header {
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background: transparent;
-            border: 1px solid #E1D0B3;
-            color: #1a1a1a;
+            background: #6ca3bd;
+            color: white;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.2s ease;
             font-size: 1.1rem;
             cursor: pointer;
+            border: 2px solid transparent;
         }
-        .dark .logout-btn-header { border-color: #666666; color: #ffffff; }
-        .logout-btn-header:hover {
-            background: #6ca3bd;
-            border-color: #6ca3bd;
-            color: white;
+        .dark .profile-icon-header {
+            background: #8cb9d0;
+            color: #1a1a1a;
+        }
+        .profile-icon-header:hover {
             transform: scale(1.05);
+            border-color: white;
+            box-shadow: 0 0 0 2px rgba(108,163,189,0.3);
         }
-        .dark .logout-btn-header:hover { background: #6ca3bd; border-color: #6ca3bd; }
+        
+        /* dropdown menu for profile */
+        .profile-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 0.75rem;
+            min-width: 200px;
+            background: white;
+            border-radius: 20px;
+            padding: 0.5rem 0;
+            box-shadow: 0 20px 40px rgba(108,163,189,0.15);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            border: 1px solid rgba(108,163,189,0.1);
+        }
+        .dark .profile-dropdown {
+            background: #1e1e1e;
+            border-color: #404040;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+        .profile-dropdown.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            color: #1a1a1a;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        .dark .dropdown-item { color: #ffffff; }
+        .dropdown-item:hover {
+            background: rgba(108,163,189,0.08);
+            color: #6ca3bd;
+        }
+        .dark .dropdown-item:hover { background: rgba(108,163,189,0.2); color: #8cb9d0; }
+        .dropdown-item i { margin-right: 0.75rem; width: 20px; color: #6ca3bd; }
+        .dark .dropdown-item i { color: #8cb9d0; }
         
         /* status badges */
         .status-badge {
@@ -294,6 +344,7 @@
             display: flex;
             align-items: center;
             gap: 0.75rem;
+            position: relative;
         }
 
         /* Main content wrapper */
@@ -327,7 +378,7 @@
 </head>
 <body class="bg-white dark:bg-dark-bg">
 
-    <!-- ========== STICKY HEADER with logout icon ========== -->
+    <!-- ========== STICKY HEADER with profile icon on right ========== -->
     <div class="sticky-header">
         <div class="header-inner">
             <!-- Logo - strictly left -->
@@ -336,20 +387,37 @@
                     <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center transform group-hover:scale-105 transition-transform">
                         <i class="fas fa-users text-white text-lg"></i>
                     </div>
-                   <div class="font-display text-2xl font-bold tracking-tight">
-    <span class="text-primary dark:text-primary-light">EVENTRO</span>
-</div>
+                    <div class="font-display text-2xl font-bold tracking-tight">
+                        <span class="text-primary dark:text-primary-light">EVENTRO</span>
+                    </div>
                 </a>
             </div>
 
-            <!-- Button group - theme, rtl, and logout -->
+            <!-- Button group - theme, rtl, and profile dropdown -->
             <div class="button-group">
                 <button id="theme-toggle" class="toggle-btn" title="Theme"><i class="fas fa-moon"></i><i class="fas fa-sun hidden"></i></button>
                 <button id="rtl-toggle" class="toggle-btn" title="RTL/LTR">⇄</button>
-                <!-- Logout button in header -->
-                <a href="login.html" class="logout-btn-header" title="Logout">
-                    <i class="fas fa-sign-out-alt"></i>
-                </a>
+                
+                <!-- Profile Icon with Dropdown -->
+                <div class="relative">
+                    <div id="profile-icon" class="profile-icon-header" title="Profile">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div id="profile-dropdown" class="profile-dropdown">
+                        <div class="dropdown-item" onclick="window.location.href='profile.html'">
+                            <i class="fas fa-user-circle"></i>
+                            <span>My Profile</span>
+                        </div>
+                        <div class="dropdown-item" onclick="window.location.href='settings.html'">
+                            <i class="fas fa-cog"></i>
+                            <span>Settings</span>
+                        </div>
+                        <div class="dropdown-item" onclick="window.location.href='login.html'">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Logout</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -363,7 +431,7 @@
                 <h1 class="text-2xl md:text-1xl font-display font-bold dark:text-white">
                     Client <span class="text-primary dark:text-primary-light">Dashboard</span>
                 </h1>
-            <p class="text-neutral-dark/80 dark:text-gray-900 mt-1 text-[13px]">manage your team events, bookings & preferences</p>
+                <p class="text-neutral-dark/80 dark:text-gray-900 mt-1 text-[13px]">manage your team events, bookings & preferences</p>
             </div>
             <div class="mt-4 md:mt-0 flex items-center gap-4 bg-white dark:bg-dark-card px-5 py-3 rounded-2xl shadow-sm border border-primary/10 dark:border-gray-700">
                 <div class="flex -space-x-2">
@@ -398,10 +466,10 @@
             </div>
         </div>
 
-        <!-- main grid: left sidebar + right content (logout removed from sidebar) -->
+        <!-- main grid: left sidebar + right content -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
             
-            <!-- left sidebar (client menu) - without logout -->
+            <!-- left sidebar (client menu) -->
             <div class="lg:col-span-4 xl:col-span-4">
                 <div class="dashboard-card p-6">
                     <div class="flex flex-col space-y-1">
@@ -410,7 +478,6 @@
                         <div class="sidebar-item" data-section="saved"><i class="fas fa-heart w-7"></i><span class="ml-4">Saved events</span></div>
                         <div class="sidebar-item" data-section="messages"><i class="fas fa-envelope w-7"></i><span class="ml-4">Messages</span><span class="ml-auto bg-primary text-white text-xs px-2.5 py-1.5 rounded-full">3</span></div>
                         <div class="sidebar-item" data-section="settings"><i class="fas fa-cog w-7"></i><span class="ml-4">Settings</span></div>
-                        <!-- Logout item removed from sidebar -->
                     </div>
                     <!-- user card with logo avatar -->
                     <div class="mt-8 pt-6 border-t border-primary/10 dark:border-gray-700">
@@ -433,7 +500,7 @@
                 </div>
             </div>
 
-            <!-- right content (6 sections - logout section removed) -->
+            <!-- right content -->
             <div class="lg:col-span-8 xl:col-span-8">
                 
                 <!-- 1. PROFILE -->
@@ -441,7 +508,6 @@
                     <div class="dashboard-card">
                         <h2 class="text-2xl font-display font-bold mb-7 flex items-center dark:text-white"><i class="fas fa-user-circle text-primary dark:text-primary-light mr-3 text-2xl"></i>Profile Management</h2>
                         <div class="grid md:grid-cols-12 gap-8">
-                            <!-- avatar with logo -->
                             <div class="md:col-span-3 flex flex-col items-center">
                                 <div class="relative">
                                     <div class="w-32 h-32 bg-primary rounded-full flex items-center justify-center border-4 border-primary/30">
@@ -453,7 +519,6 @@
                                 <p class="text-sm text-neutral-dark/60 dark:text-gray-400">member 2025</p>
                                 <span class="mt-2 px-4 py-1.5 bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary-light rounded-full text-xs font-semibold">verified</span>
                             </div>
-                            <!-- form -->
                             <div class="md:col-span-9 space-y-5">
                                 <div class="grid md:grid-cols-2 gap-5">
                                     <div><label class="block text-sm font-medium mb-2 dark:text-gray-300">full name</label><input class="dashboard-input" value="Emma Watson"></div>
@@ -465,7 +530,6 @@
                                 <div class="flex justify-end mt-4"><button class="save-btn px-10"><i class="fas fa-save mr-2"></i>save changes</button></div>
                             </div>
                         </div>
-                        <!-- change password -->
                         <div class="mt-10 pt-8 border-t border-primary/10 dark:border-gray-700">
                             <h3 class="text-xl font-bold mb-5 flex items-center dark:text-white"><i class="fas fa-key text-primary dark:text-primary-light mr-2"></i>change password</h3>
                             <div class="grid md:grid-cols-3 gap-5">
@@ -482,62 +546,36 @@
                 <div id="orders-section" class="dashboard-section hidden">
                     <div class="dashboard-card">
                         <h2 class="text-2xl font-display font-bold mb-7 flex items-center dark:text-white"><i class="fas fa-calendar-alt text-primary dark:text-primary-light mr-3 text-2xl"></i>Event History</h2>
-                        
-                        <!-- Filter buttons -->
                         <div class="flex flex-wrap gap-3 mb-6">
                             <button class="px-5 py-2 rounded-full bg-primary text-white dark:bg-primary dark:text-white">all</button>
                             <button class="px-5 py-2 rounded-full border border-primary/30 dark:border-gray-600 dark:text-gray-300">upcoming</button>
                             <button class="px-5 py-2 rounded-full border border-primary/30 dark:border-gray-600 dark:text-gray-300">completed</button>
                         </div>
-                        
                         <div class="space-y-5">
-                            <!-- event 1 -->
                             <div class="order-item bg-neutral-light/30 dark:bg-gray-800/30 p-4 sm:p-5 rounded-xl">
                                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
-                                    <div>
-                                        <h3 class="font-bold text-lg dark:text-white">Virtual Escape Room</h3>
-                                        <p class="text-sm text-neutral-dark/60 dark:text-gray-400">TechCorp · 15 participants</p>
-                                    </div>
-                                    <div class="flex items-center justify-between w-full sm:w-auto gap-5">
-                                        <span class="font-bold text-xl text-primary dark:text-primary-light">$450</span>
-                                        <button class="text-primary dark:text-primary-light hover:underline text-sm">details →</button>
-                                    </div>
+                                    <div><h3 class="font-bold text-lg dark:text-white">Virtual Escape Room</h3><p class="text-sm text-neutral-dark/60 dark:text-gray-400">TechCorp · 15 participants</p></div>
+                                    <div class="flex items-center justify-between w-full sm:w-auto gap-5"><span class="font-bold text-xl text-primary dark:text-primary-light">$450</span><button class="text-primary dark:text-primary-light hover:underline text-sm">details →</button></div>
                                 </div>
                                 <div class="flex flex-wrap gap-3 sm:gap-5 mt-3 text-sm text-neutral-dark/60 dark:text-gray-400">
                                     <span><i class="fas fa-calendar mr-1 text-primary dark:text-primary-light"></i>May 12, 2026</span>
                                     <span><i class="fas fa-check-circle text-primary dark:text-primary-light mr-1"></i>completed</span>
                                 </div>
                             </div>
-                            
-                            <!-- event 2 -->
                             <div class="order-item bg-neutral-light/30 dark:bg-gray-800/30 p-4 sm:p-5 rounded-xl">
                                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
-                                    <div>
-                                        <h3 class="font-bold text-lg dark:text-white">City Scavenger Hunt</h3>
-                                        <p class="text-sm text-neutral-dark/60 dark:text-gray-400">InnovateLabs · 8 participants</p>
-                                    </div>
-                                    <div class="flex items-center justify-between w-full sm:w-auto gap-5">
-                                        <span class="font-bold text-xl text-primary dark:text-primary-light">$399</span>
-                                        <button class="text-primary dark:text-primary-light hover:underline text-sm">details →</button>
-                                    </div>
+                                    <div><h3 class="font-bold text-lg dark:text-white">City Scavenger Hunt</h3><p class="text-sm text-neutral-dark/60 dark:text-gray-400">InnovateLabs · 8 participants</p></div>
+                                    <div class="flex items-center justify-between w-full sm:w-auto gap-5"><span class="font-bold text-xl text-primary dark:text-primary-light">$399</span><button class="text-primary dark:text-primary-light hover:underline text-sm">details →</button></div>
                                 </div>
                                 <div class="flex flex-wrap gap-3 sm:gap-5 mt-3 text-sm text-neutral-dark/60 dark:text-gray-400">
                                     <span><i class="fas fa-calendar mr-1 text-primary dark:text-primary-light"></i>Jun 3, 2026</span>
                                     <span><i class="fas fa-check-circle text-primary dark:text-primary-light mr-1"></i>completed</span>
                                 </div>
                             </div>
-                            
-                            <!-- event 3 pending -->
                             <div class="order-item bg-neutral-light/30 dark:bg-gray-800/30 p-4 sm:p-5 rounded-xl">
                                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
-                                    <div>
-                                        <h3 class="font-bold text-lg dark:text-white">Cooking Class</h3>
-                                        <p class="text-sm text-neutral-dark/60 dark:text-gray-400">CreativeStudio · 12 participants</p>
-                                    </div>
-                                    <div class="flex items-center justify-between w-full sm:w-auto gap-5">
-                                        <span class="font-bold text-xl text-primary dark:text-primary-light">$525</span>
-                                        <button class="text-primary dark:text-primary-light hover:underline text-sm">details →</button>
-                                    </div>
+                                    <div><h3 class="font-bold text-lg dark:text-white">Cooking Class</h3><p class="text-sm text-neutral-dark/60 dark:text-gray-400">CreativeStudio · 12 participants</p></div>
+                                    <div class="flex items-center justify-between w-full sm:w-auto gap-5"><span class="font-bold text-xl text-primary dark:text-primary-light">$525</span><button class="text-primary dark:text-primary-light hover:underline text-sm">details →</button></div>
                                 </div>
                                 <div class="flex flex-wrap gap-3 sm:gap-5 mt-3 text-sm text-neutral-dark/60 dark:text-gray-400">
                                     <span><i class="fas fa-calendar mr-1 text-primary dark:text-primary-light"></i>Jun 18, 2026</span>
@@ -545,10 +583,7 @@
                                 </div>
                             </div>
                         </div>
-                        
-                        <div class="mt-7 text-center">
-                            <button class="text-primary dark:text-primary-light font-semibold hover:underline">view all 8 events →</button>
-                        </div>
+                        <div class="mt-7 text-center"><button class="text-primary dark:text-primary-light font-semibold hover:underline">view all 8 events →</button></div>
                     </div>
                 </div>
 
@@ -556,84 +591,25 @@
                 <div id="saved-section" class="dashboard-section hidden">
                     <div class="dashboard-card">
                         <h2 class="text-2xl font-display font-bold mb-7 flex items-center dark:text-white"><i class="fas fa-heart text-primary dark:text-primary-light mr-3 text-2xl"></i>Saved Events</h2>
-                        
                         <div class="grid grid-cols-1 gap-5">
-                            <!-- Saved Event 1 -->
                             <div class="saved-item-card bg-neutral-light/30 dark:bg-gray-800/30 p-4 rounded-xl flex flex-col items-center sm:items-start sm:flex-row gap-4">
-                                <div class="w-24 h-24 bg-primary/10 dark:bg-primary/20 rounded-xl flex items-center justify-center">
-                                    <i class="fas fa-puzzle-piece text-primary dark:text-primary-light text-3xl"></i>
-                                </div>
-                                <div class="flex-1 text-center sm:text-left">
-                                    <h4 class="font-bold text-lg dark:text-white">Escape Room</h4>
-                                    <p class="text-xs text-neutral-dark/60 dark:text-gray-400 mb-2">60-90 min · 2-50 people</p>
-                                    <div class="flex flex-col items-center sm:items-start sm:flex-row sm:justify-between gap-3">
-                                        <span class="font-bold text-primary dark:text-primary-light text-xl">$450<span class="text-sm font-normal text-neutral-dark/60 dark:text-gray-400 ml-1">/event</span></span>
-                                        <div class="flex gap-2">
-                                            <button class="w-9 h-9 bg-primary/10 dark:bg-primary/20 rounded-lg flex items-center justify-center text-primary dark:text-primary-light hover:bg-primary hover:text-white transition"><i class="fas fa-shopping-cart"></i></button>
-                                            <button class="w-9 h-9 bg-red-50 dark:bg-red-900/20 rounded-lg flex items-center justify-center text-red-500 dark:text-red-400 hover:bg-red-500 hover:text-white transition"><i class="fas fa-trash-alt"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
+                                <div class="w-24 h-24 bg-primary/10 dark:bg-primary/20 rounded-xl flex items-center justify-center"><i class="fas fa-puzzle-piece text-primary dark:text-primary-light text-3xl"></i></div>
+                                <div class="flex-1 text-center sm:text-left"><h4 class="font-bold text-lg dark:text-white">Escape Room</h4><p class="text-xs text-neutral-dark/60 dark:text-gray-400 mb-2">60-90 min · 2-50 people</p><div class="flex flex-col items-center sm:items-start sm:flex-row sm:justify-between gap-3"><span class="font-bold text-primary dark:text-primary-light text-xl">$450<span class="text-sm font-normal text-neutral-dark/60 dark:text-gray-400 ml-1">/event</span></span><div class="flex gap-2"><button class="w-9 h-9 bg-primary/10 dark:bg-primary/20 rounded-lg flex items-center justify-center text-primary dark:text-primary-light hover:bg-primary hover:text-white transition"><i class="fas fa-shopping-cart"></i></button><button class="w-9 h-9 bg-red-50 dark:bg-red-900/20 rounded-lg flex items-center justify-center text-red-500 dark:text-red-400 hover:bg-red-500 hover:text-white transition"><i class="fas fa-trash-alt"></i></button></div></div></div>
                             </div>
-                            
-                            <!-- Saved Event 2 -->
                             <div class="saved-item-card bg-neutral-light/30 dark:bg-gray-800/30 p-4 rounded-xl flex flex-col items-center sm:items-start sm:flex-row gap-4">
-                                <div class="w-24 h-24 bg-primary/10 dark:bg-primary/20 rounded-xl flex items-center justify-center">
-                                    <i class="fas fa-chess-board text-primary dark:text-primary-light text-3xl"></i>
-                                </div>
-                                <div class="flex-1 text-center sm:text-left">
-                                    <h4 class="font-bold text-lg dark:text-white">Scavenger Hunt</h4>
-                                    <p class="text-xs text-neutral-dark/60 dark:text-gray-400 mb-2">2-3 hrs · 10-100 people</p>
-                                    <div class="flex flex-col items-center sm:items-start sm:flex-row sm:justify-between gap-3">
-                                        <span class="font-bold text-primary dark:text-primary-light text-xl">$399<span class="text-sm font-normal text-neutral-dark/60 dark:text-gray-400 ml-1">/event</span></span>
-                                        <div class="flex gap-2">
-                                            <button class="w-9 h-9 bg-primary/10 dark:bg-primary/20 rounded-lg flex items-center justify-center text-primary dark:text-primary-light hover:bg-primary hover:text-white transition"><i class="fas fa-shopping-cart"></i></button>
-                                            <button class="w-9 h-9 bg-red-50 dark:bg-red-900/20 rounded-lg flex items-center justify-center text-red-500 dark:text-red-400 hover:bg-red-500 hover:text-white transition"><i class="fas fa-trash-alt"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
+                                <div class="w-24 h-24 bg-primary/10 dark:bg-primary/20 rounded-xl flex items-center justify-center"><i class="fas fa-chess-board text-primary dark:text-primary-light text-3xl"></i></div>
+                                <div class="flex-1 text-center sm:text-left"><h4 class="font-bold text-lg dark:text-white">Scavenger Hunt</h4><p class="text-xs text-neutral-dark/60 dark:text-gray-400 mb-2">2-3 hrs · 10-100 people</p><div class="flex flex-col items-center sm:items-start sm:flex-row sm:justify-between gap-3"><span class="font-bold text-primary dark:text-primary-light text-xl">$399<span class="text-sm font-normal text-neutral-dark/60 dark:text-gray-400 ml-1">/event</span></span><div class="flex gap-2"><button class="w-9 h-9 bg-primary/10 dark:bg-primary/20 rounded-lg flex items-center justify-center text-primary dark:text-primary-light hover:bg-primary hover:text-white transition"><i class="fas fa-shopping-cart"></i></button><button class="w-9 h-9 bg-red-50 dark:bg-red-900/20 rounded-lg flex items-center justify-center text-red-500 dark:text-red-400 hover:bg-red-500 hover:text-white transition"><i class="fas fa-trash-alt"></i></button></div></div></div>
                             </div>
-                            
-                            <!-- Saved Event 3 -->
                             <div class="saved-item-card bg-neutral-light/30 dark:bg-gray-800/30 p-4 rounded-xl flex flex-col items-center sm:items-start sm:flex-row gap-4">
-                                <div class="w-24 h-24 bg-primary/10 dark:bg-primary/20 rounded-xl flex items-center justify-center">
-                                    <i class="fas fa-utensils text-primary dark:text-primary-light text-3xl"></i>
-                                </div>
-                                <div class="flex-1 text-center sm:text-left">
-                                    <h4 class="font-bold text-lg dark:text-white">Cooking Class</h4>
-                                    <p class="text-xs text-neutral-dark/60 dark:text-gray-400 mb-2">2-3 hrs · 8-40 people</p>
-                                    <div class="flex flex-col items-center sm:items-start sm:flex-row sm:justify-between gap-3">
-                                        <span class="font-bold text-primary dark:text-primary-light text-xl">$525<span class="text-sm font-normal text-neutral-dark/60 dark:text-gray-400 ml-1">/event</span></span>
-                                        <div class="flex gap-2">
-                                            <button class="w-9 h-9 bg-primary/10 dark:bg-primary/20 rounded-lg flex items-center justify-center text-primary dark:text-primary-light hover:bg-primary hover:text-white transition"><i class="fas fa-shopping-cart"></i></button>
-                                            <button class="w-9 h-9 bg-red-50 dark:bg-red-900/20 rounded-lg flex items-center justify-center text-red-500 dark:text-red-400 hover:bg-red-500 hover:text-white transition"><i class="fas fa-trash-alt"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
+                                <div class="w-24 h-24 bg-primary/10 dark:bg-primary/20 rounded-xl flex items-center justify-center"><i class="fas fa-utensils text-primary dark:text-primary-light text-3xl"></i></div>
+                                <div class="flex-1 text-center sm:text-left"><h4 class="font-bold text-lg dark:text-white">Cooking Class</h4><p class="text-xs text-neutral-dark/60 dark:text-gray-400 mb-2">2-3 hrs · 8-40 people</p><div class="flex flex-col items-center sm:items-start sm:flex-row sm:justify-between gap-3"><span class="font-bold text-primary dark:text-primary-light text-xl">$525<span class="text-sm font-normal text-neutral-dark/60 dark:text-gray-400 ml-1">/event</span></span><div class="flex gap-2"><button class="w-9 h-9 bg-primary/10 dark:bg-primary/20 rounded-lg flex items-center justify-center text-primary dark:text-primary-light hover:bg-primary hover:text-white transition"><i class="fas fa-shopping-cart"></i></button><button class="w-9 h-9 bg-red-50 dark:bg-red-900/20 rounded-lg flex items-center justify-center text-red-500 dark:text-red-400 hover:bg-red-500 hover:text-white transition"><i class="fas fa-trash-alt"></i></button></div></div></div>
                             </div>
-                            
-                            <!-- Saved Event 4 -->
                             <div class="saved-item-card bg-neutral-light/30 dark:bg-gray-800/30 p-4 rounded-xl flex flex-col items-center sm:items-start sm:flex-row gap-4">
-                                <div class="w-24 h-24 bg-primary/10 dark:bg-primary/20 rounded-xl flex items-center justify-center">
-                                    <i class="fas fa-question-circle text-primary dark:text-primary-light text-3xl"></i>
-                                </div>
-                                <div class="flex-1 text-center sm:text-left">
-                                    <h4 class="font-bold text-lg dark:text-white">Trivia Challenge</h4>
-                                    <p class="text-xs text-neutral-dark/60 dark:text-gray-400 mb-2">45-60 min · 10-200 people</p>
-                                    <div class="flex flex-col items-center sm:items-start sm:flex-row sm:justify-between gap-3">
-                                        <span class="font-bold text-primary dark:text-primary-light text-xl">$299<span class="text-sm font-normal text-neutral-dark/60 dark:text-gray-400 ml-1">/event</span></span>
-                                        <div class="flex gap-2">
-                                            <button class="w-9 h-9 bg-primary/10 dark:bg-primary/20 rounded-lg flex items-center justify-center text-primary dark:text-primary-light hover:bg-primary hover:text-white transition"><i class="fas fa-shopping-cart"></i></button>
-                                            <button class="w-9 h-9 bg-red-50 dark:bg-red-900/20 rounded-lg flex items-center justify-center text-red-500 dark:text-red-400 hover:bg-red-500 hover:text-white transition"><i class="fas fa-trash-alt"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
+                                <div class="w-24 h-24 bg-primary/10 dark:bg-primary/20 rounded-xl flex items-center justify-center"><i class="fas fa-question-circle text-primary dark:text-primary-light text-3xl"></i></div>
+                                <div class="flex-1 text-center sm:text-left"><h4 class="font-bold text-lg dark:text-white">Trivia Challenge</h4><p class="text-xs text-neutral-dark/60 dark:text-gray-400 mb-2">45-60 min · 10-200 people</p><div class="flex flex-col items-center sm:items-start sm:flex-row sm:justify-between gap-3"><span class="font-bold text-primary dark:text-primary-light text-xl">$299<span class="text-sm font-normal text-neutral-dark/60 dark:text-gray-400 ml-1">/event</span></span><div class="flex gap-2"><button class="w-9 h-9 bg-primary/10 dark:bg-primary/20 rounded-lg flex items-center justify-center text-primary dark:text-primary-light hover:bg-primary hover:text-white transition"><i class="fas fa-shopping-cart"></i></button><button class="w-9 h-9 bg-red-50 dark:bg-red-900/20 rounded-lg flex items-center justify-center text-red-500 dark:text-red-400 hover:bg-red-500 hover:text-white transition"><i class="fas fa-trash-alt"></i></button></div></div></div>
                             </div>
                         </div>
-                        
-                        <div class="mt-7 text-center">
-                            <button class="text-primary dark:text-primary-light font-semibold hover:underline">browse more events →</button>
-                        </div>
+                        <div class="mt-7 text-center"><button class="text-primary dark:text-primary-light font-semibold hover:underline">browse more events →</button></div>
                     </div>
                 </div>
                 
@@ -642,38 +618,9 @@
                     <div class="dashboard-card">
                         <h2 class="text-2xl font-display font-bold mb-7 flex items-center dark:text-white"><i class="fas fa-envelope text-primary dark:text-primary-light mr-3 text-2xl"></i>Messages <span class="ml-4 bg-primary text-white text-xs px-2.5 py-1.5 rounded-full">3 unread</span></h2>
                         <div class="space-y-4">
-                            <div class="message-item unread">
-                                <div>
-                                    <div class="flex justify-between">
-                                        <h4 class="font-bold text-lg dark:text-white">Event Coordinator</h4>
-                                        <span class="text-xs text-neutral-dark/60 dark:text-gray-400">2h ago</span>
-                                    </div>
-                                    <p class="text-sm text-neutral-dark/70 dark:text-gray-300">TechCorp</p>
-                                    <p class="text-base mt-2 dark:text-gray-300">Hi Emma, your escape room booking is confirmed! Here are the details...</p>
-                                    <span class="inline-block mt-3 text-xs bg-primary text-white dark:bg-primary dark:text-white px-3 py-1.5 rounded-full">new</span>
-                                </div>
-                            </div>
-                            <div class="message-item unread">
-                                <div>
-                                    <div class="flex justify-between">
-                                        <h4 class="font-bold text-lg dark:text-white">Sarah Johnson</h4>
-                                        <span class="text-xs text-neutral-dark/60 dark:text-gray-400">yesterday</span>
-                                    </div>
-                                    <p class="text-sm text-neutral-dark/70 dark:text-gray-300">Team Lead</p>
-                                    <p class="text-base mt-2 dark:text-gray-300">The scavenger hunt was amazing! Can we book another one next month?</p>
-                                    <span class="inline-block mt-3 text-xs bg-primary text-white dark:bg-primary dark:text-white px-3 py-1.5 rounded-full">new</span>
-                                </div>
-                            </div>
-                            <div class="message-item">
-                                <div>
-                                    <div class="flex justify-between">
-                                        <h4 class="font-bold text-lg dark:text-white">EVENTRO support</h4>
-                                        <span class="text-xs text-neutral-dark/60 dark:text-gray-400">3d ago</span>
-                                    </div>
-                                    <p class="text-sm text-neutral-dark/70 dark:text-gray-300">customer service</p>
-                                    <p class="text-base mt-2 dark:text-gray-300">Thank you for your recent booking! Here's a quick guide to prepare for your event...</p>
-                                </div>
-                            </div>
+                            <div class="message-item unread"><div><div class="flex justify-between"><h4 class="font-bold text-lg dark:text-white">Event Coordinator</h4><span class="text-xs text-neutral-dark/60 dark:text-gray-400">2h ago</span></div><p class="text-sm text-neutral-dark/70 dark:text-gray-300">TechCorp</p><p class="text-base mt-2 dark:text-gray-300">Hi Emma, your escape room booking is confirmed! Here are the details...</p><span class="inline-block mt-3 text-xs bg-primary text-white dark:bg-primary dark:text-white px-3 py-1.5 rounded-full">new</span></div></div>
+                            <div class="message-item unread"><div><div class="flex justify-between"><h4 class="font-bold text-lg dark:text-white">Sarah Johnson</h4><span class="text-xs text-neutral-dark/60 dark:text-gray-400">yesterday</span></div><p class="text-sm text-neutral-dark/70 dark:text-gray-300">Team Lead</p><p class="text-base mt-2 dark:text-gray-300">The scavenger hunt was amazing! Can we book another one next month?</p><span class="inline-block mt-3 text-xs bg-primary text-white dark:bg-primary dark:text-white px-3 py-1.5 rounded-full">new</span></div></div>
+                            <div class="message-item"><div><div class="flex justify-between"><h4 class="font-bold text-lg dark:text-white">EVENTRO support</h4><span class="text-xs text-neutral-dark/60 dark:text-gray-400">3d ago</span></div><p class="text-sm text-neutral-dark/70 dark:text-gray-300">customer service</p><p class="text-base mt-2 dark:text-gray-300">Thank you for your recent booking! Here's a quick guide to prepare for your event...</p></div></div>
                         </div>
                         <div class="mt-7 text-center"><button class="text-primary dark:text-primary-light font-semibold hover:underline">view all messages →</button></div>
                     </div>
@@ -684,53 +631,8 @@
                     <div class="dashboard-card">
                         <h2 class="text-2xl font-display font-bold mb-7 flex items-center dark:text-white"><i class="fas fa-cog text-primary dark:text-primary-light mr-3 text-2xl"></i>Settings</h2>
                         <div class="space-y-8">
-                            <!-- notifications -->
-                            <div>
-                                <h3 class="text-xl font-bold mb-5 flex items-center dark:text-white"><i class="fas fa-bell text-primary dark:text-primary-light mr-2"></i>notifications</h3>
-                                <div class="space-y-4 bg-neutral-light/30 dark:bg-gray-800/50 p-5 rounded-2xl">
-                                    <div class="flex justify-between">
-                                        <div>
-                                            <p class="font-bold dark:text-white">email alerts</p>
-                                            <p class="text-sm text-neutral-dark/60 dark:text-gray-400">event confirmations</p>
-                                        </div>
-                                        <label class="toggle-switch"><input type="checkbox" checked><span class="toggle-slider"></span></label>
-                                    </div>
-                                    <div class="flex justify-between">
-                                        <div>
-                                            <p class="font-bold dark:text-white">sms updates</p>
-                                            <p class="text-sm text-neutral-dark/60 dark:text-gray-400">urgent changes</p>
-                                        </div>
-                                        <label class="toggle-switch"><input type="checkbox"><span class="toggle-slider"></span></label>
-                                    </div>
-                                    <div class="flex justify-between">
-                                        <div>
-                                            <p class="font-bold dark:text-white">promotional</p>
-                                            <p class="text-sm text-neutral-dark/60 dark:text-gray-400">offers & news</p>
-                                        </div>
-                                        <label class="toggle-switch"><input type="checkbox" checked><span class="toggle-slider"></span></label>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- privacy -->
-                            <div>
-                                <h3 class="text-xl font-bold mb-5 flex items-center dark:text-white"><i class="fas fa-shield-alt text-primary dark:text-primary-light mr-2"></i>privacy</h3>
-                                <div class="space-y-4 bg-neutral-light/30 dark:bg-gray-800/50 p-5 rounded-2xl">
-                                    <div class="flex justify-between">
-                                        <div>
-                                            <p class="font-bold dark:text-white">profile visibility</p>
-                                            <p class="text-sm text-neutral-dark/60 dark:text-gray-400">visible to facilitators</p>
-                                        </div>
-                                        <label class="toggle-switch"><input type="checkbox" checked><span class="toggle-slider"></span></label>
-                                    </div>
-                                    <div class="flex justify-between">
-                                        <div>
-                                            <p class="font-bold dark:text-white">share history</p>
-                                            <p class="text-sm text-neutral-dark/60 dark:text-gray-400">facilitators see past events</p>
-                                        </div>
-                                        <label class="toggle-switch"><input type="checkbox"><span class="toggle-slider"></span></label>
-                                    </div>
-                                </div>
-                            </div>
+                            <div><h3 class="text-xl font-bold mb-5 flex items-center dark:text-white"><i class="fas fa-bell text-primary dark:text-primary-light mr-2"></i>notifications</h3><div class="space-y-4 bg-neutral-light/30 dark:bg-gray-800/50 p-5 rounded-2xl"><div class="flex justify-between"><div><p class="font-bold dark:text-white">email alerts</p><p class="text-sm text-neutral-dark/60 dark:text-gray-400">event confirmations</p></div><label class="toggle-switch"><input type="checkbox" checked><span class="toggle-slider"></span></label></div><div class="flex justify-between"><div><p class="font-bold dark:text-white">sms updates</p><p class="text-sm text-neutral-dark/60 dark:text-gray-400">urgent changes</p></div><label class="toggle-switch"><input type="checkbox"><span class="toggle-slider"></span></label></div><div class="flex justify-between"><div><p class="font-bold dark:text-white">promotional</p><p class="text-sm text-neutral-dark/60 dark:text-gray-400">offers & news</p></div><label class="toggle-switch"><input type="checkbox" checked><span class="toggle-slider"></span></label></div></div></div>
+                            <div><h3 class="text-xl font-bold mb-5 flex items-center dark:text-white"><i class="fas fa-shield-alt text-primary dark:text-primary-light mr-2"></i>privacy</h3><div class="space-y-4 bg-neutral-light/30 dark:bg-gray-800/50 p-5 rounded-2xl"><div class="flex justify-between"><div><p class="font-bold dark:text-white">profile visibility</p><p class="text-sm text-neutral-dark/60 dark:text-gray-400">visible to facilitators</p></div><label class="toggle-switch"><input type="checkbox" checked><span class="toggle-slider"></span></label></div><div class="flex justify-between"><div><p class="font-bold dark:text-white">share history</p><p class="text-sm text-neutral-dark/60 dark:text-gray-400">facilitators see past events</p></div><label class="toggle-switch"><input type="checkbox"><span class="toggle-slider"></span></label></div></div></div>
                             <div class="flex justify-end"><button class="save-btn px-12 py-3"><i class="fas fa-save mr-2"></i>save settings</button></div>
                         </div>
                     </div>
@@ -780,7 +682,25 @@
                 rtlToggle?.classList.add('active');
             }
 
-            // sections (logout section removed)
+            // Profile dropdown toggle
+            const profileIcon = document.getElementById('profile-icon');
+            const profileDropdown = document.getElementById('profile-dropdown');
+            
+            if (profileIcon && profileDropdown) {
+                profileIcon.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    profileDropdown.classList.toggle('show');
+                });
+                
+                // Close dropdown when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (!profileIcon.contains(e.target) && !profileDropdown.contains(e.target)) {
+                        profileDropdown.classList.remove('show');
+                    }
+                });
+            }
+
+            // sections
             const sections = {
                 profile: document.getElementById('profile-section'),
                 orders: document.getElementById('orders-section'),

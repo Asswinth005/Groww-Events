@@ -135,6 +135,80 @@
         .toggle-btn.active { background: #6ca3bd; color: white; }
         .dark .toggle-btn.active { background: #8cb9d0; }
         
+        /* profile icon in header */
+        .profile-icon-header {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #6ca3bd;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            font-size: 1.1rem;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+        .dark .profile-icon-header {
+            background: #8cb9d0;
+            color: #1a1a1a;
+        }
+        .profile-icon-header:hover {
+            transform: scale(1.05);
+            border-color: white;
+            box-shadow: 0 0 0 2px rgba(108,163,189,0.3);
+        }
+        
+        /* dropdown menu for profile */
+        .profile-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 0.75rem;
+            min-width: 200px;
+            background: white;
+            border-radius: 20px;
+            padding: 0.5rem 0;
+            box-shadow: 0 20px 40px rgba(108,163,189,0.15);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            border: 1px solid rgba(108,163,189,0.1);
+        }
+        .dark .profile-dropdown {
+            background: #1e1e1e;
+            border-color: #404040;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+        .profile-dropdown.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            color: #1a1a1a;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        .dark .dropdown-item { color: #ffffff; }
+        .dropdown-item:hover {
+            background: rgba(108,163,189,0.08);
+            color: #6ca3bd;
+        }
+        .dark .dropdown-item:hover { background: rgba(108,163,189,0.2); color: #8cb9d0; }
+        .dropdown-item i { margin-right: 0.75rem; width: 20px; color: #6ca3bd; }
+        .dark .dropdown-item i { color: #8cb9d0; }
+        
         /* status badges */
         .status-badge {
             display: inline-flex;
@@ -251,30 +325,6 @@
             background-color: rgba(10, 10, 10, 0.95);
             border-bottom: 1px solid #333;
         }
-        
-        /* Logout button */
-        .logout-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: transparent;
-            border: 1px solid #E1D0B3;
-            color: #1a1a1a;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s ease;
-            font-size: 1.1rem;
-            cursor: pointer;
-        }
-        .dark .logout-btn { border-color: #666666; color: #ffffff; }
-        .logout-btn:hover {
-            background: #6ca3bd;
-            border-color: #6ca3bd;
-            color: white;
-            transform: scale(1.05);
-        }
-        .dark .logout-btn:hover { background: #6ca3bd; border-color: #6ca3bd; }
 
         /* Header inner container - now properly spaced */
         .header-inner {
@@ -297,6 +347,7 @@
             display: flex;
             align-items: center;
             gap: 0.75rem;
+            position: relative;
         }
 
         /* Main content wrapper */
@@ -314,7 +365,7 @@
 </head>
 <body class="bg-white dark:bg-dark-bg">
 
-    <!-- ========== FULL-WIDTH STICKY HEADER ========== -->
+    <!-- ========== FULL-WIDTH STICKY HEADER with Profile Icon ========== -->
     <div class="sticky-header">
         <div class="header-inner">
             <!-- Logo - strictly left -->
@@ -323,20 +374,37 @@
                     <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center transform group-hover:scale-105 transition-transform">
                         <i class="fas fa-users text-white text-lg"></i>
                     </div>
-                   <div class="font-display text-2xl font-bold tracking-tight">
-    <span class="text-primary dark:text-primary-light">EVENTRO</span>
-</div>
+                    <div class="font-display text-2xl font-bold tracking-tight">
+                        <span class="text-primary dark:text-primary-light">EVENTRO</span>
+                    </div>
                 </a>
             </div>
 
-            <!-- Button group - strictly right -->
+            <!-- Button group - theme, rtl, and profile dropdown -->
             <div class="button-group">
                 <button id="theme-toggle" class="toggle-btn" title="Theme"><i class="fas fa-moon"></i><i class="fas fa-sun hidden"></i></button>
                 <button id="rtl-toggle" class="toggle-btn" title="RTL/LTR">⇄</button>
-                <!-- Logout button -->
-                <a href="login.html" class="logout-btn" title="Logout">
-                    <i class="fas fa-sign-out-alt"></i>
-                </a>
+                
+                <!-- Profile Icon with Dropdown -->
+                <div class="relative">
+                    <div id="profile-icon" class="profile-icon-header" title="Profile">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <div id="profile-dropdown" class="profile-dropdown">
+                        <div class="dropdown-item" onclick="window.location.href='profile.html'">
+                            <i class="fas fa-user-circle"></i>
+                            <span>My Profile</span>
+                        </div>
+                        <div class="dropdown-item" onclick="window.location.href='settings.html'">
+                            <i class="fas fa-cog"></i>
+                            <span>Settings</span>
+                        </div>
+                        <div class="dropdown-item" onclick="window.location.href='login.html'">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Logout</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -617,6 +685,24 @@
                 document.documentElement.dir = 'rtl';
                 document.documentElement.lang = 'ar';
                 rtlToggle?.classList.add('active');
+            }
+
+            // Profile dropdown toggle
+            const profileIcon = document.getElementById('profile-icon');
+            const profileDropdown = document.getElementById('profile-dropdown');
+            
+            if (profileIcon && profileDropdown) {
+                profileIcon.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    profileDropdown.classList.toggle('show');
+                });
+                
+                // Close dropdown when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (profileIcon && profileDropdown && !profileIcon.contains(e.target) && !profileDropdown.contains(e.target)) {
+                        profileDropdown.classList.remove('show');
+                    }
+                });
             }
 
             // Section switching
