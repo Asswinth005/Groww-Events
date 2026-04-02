@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" dir="ltr" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+        .fas.hidden { display: none !important; }
         body {
             background-color: #FFFFFF;
             color: #2A2A2A;
@@ -331,6 +332,12 @@
             .main-wrapper {
                 padding: 0 1rem 2rem;
             }
+            .sticky-header {
+                padding: 0.75rem 1rem;
+            }
+            .button-group {
+                gap: 0.35rem;
+            }
         }
 
         /* Cancel logout button (for logout section) */
@@ -348,6 +355,105 @@
         .cancel-logout:hover { background: #6ca3bd; color: white; }
         .dark .cancel-logout { border-color: #8cb9d0; color: #8cb9d0; }
         .dark .cancel-logout:hover { background: #8cb9d0; color: white; }
+        
+        /* Mobile Sidebar */
+        .mobile-sidebar {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 100;
+            width: 280px;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+        [dir="rtl"] .mobile-sidebar {
+            left: auto;
+            right: 0;
+            transform: translateX(100%);
+        }
+        .mobile-sidebar.open {
+            transform: translateX(0) !important;
+        }
+        .mobile-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 90;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        .mobile-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        @media (min-width: 1024px) {
+            .mobile-sidebar {
+                position: relative !important;
+                transform: translateX(0) !important;
+                width: auto !important;
+                z-index: 1 !important;
+            }
+            [dir="rtl"] .mobile-sidebar {
+                transform: translateX(0) !important;
+            }
+            .mobile-overlay {
+                display: none !important;
+            }
+        }
+        
+        .hamburger-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: inherit;
+            font-size: 1.5rem;
+            cursor: pointer;
+            margin-right: 1rem;
+        }
+        [dir="rtl"] .hamburger-btn {
+            margin-right: 0;
+            margin-left: 1rem;
+        }
+        @media (max-width: 1023px) {
+            .hamburger-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .mobile-sidebar .dashboard-card {
+                height: 100%;
+                border-radius: 0;
+                overflow-y: auto;
+                border: none;
+            }
+            [dir="rtl"] .close-sidebar-btn {
+                right: auto;
+                left: 1rem;
+            }
+        }
+        
+        .close-sidebar-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: inherit;
+            display: none;
+        }
+        @media (max-width: 1023px) {
+            .close-sidebar-btn {
+                display: block;
+            }
+        }
     </style>
 </head>
 <body class="bg-white dark:bg-dark-bg">
@@ -357,6 +463,9 @@
         <div class="header-inner">
             <!-- Logo - strictly left -->
             <div class="logo-container">
+                <button id="mobile-menu-btn" class="hamburger-btn dark:text-white" aria-label="Toggle Menu">
+                    <i class="fas fa-bars"></i>
+                </button>
                 <a href="index.html" class="flex items-center space-x-2 rtl:space-x-reverse group">
                     <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center transform group-hover:scale-105 transition-transform">
                         <i class="fas fa-users text-white text-lg"></i>
@@ -369,11 +478,11 @@
 
             <!-- Button group - theme, rtl, and profile dropdown -->
             <div class="button-group">
-                <button id="theme-toggle" class="toggle-btn" title="Theme"><i class="fas fa-moon"></i><i class="fas fa-sun hidden"></i></button>
+                <button id="theme-toggle" class="toggle-btn" title="Theme"><i class="fas fa-sun"></i><i class="fas fa-moon hidden"></i></button>
                 <button id="rtl-toggle" class="toggle-btn" title="RTL/LTR">⇄</button>
                 
                 <!-- Profile Icon with Dropdown -->
-                <div class="relative">
+                <div class="relative hidden lg:block">
                     <div id="profile-icon" class="profile-icon-header" title="Profile">
                         <i class="fas fa-user"></i>
                     </div>
@@ -405,7 +514,7 @@
                 <h1 class="text-2xl md:text-1xl font-display font-bold dark:text-white">
                     Client <span class="text-primary dark:text-primary-light">Dashboard</span>
                 </h1>
-                <p class="text-neutral-dark/80 dark:text-gray-900 mt-1 text-[13px]">manage your team events, bookings & preferences</p>
+                <p class="text-neutral-dark/80 dark:text-gray-400 mt-1 text-[13px]">manage your team events, bookings & preferences</p>
             </div>
             <div class="mt-4 md:mt-0 flex items-center gap-4 bg-white dark:bg-dark-card px-5 py-3 rounded-2xl shadow-sm border border-primary/10 dark:border-gray-700">
                 <div class="flex -space-x-2">
@@ -441,12 +550,18 @@
         </div>
 
         <!-- main grid: left sidebar + right content -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 relative">
             
+            <!-- Mobile Overlay -->
+            <div id="mobile-overlay" class="mobile-overlay"></div>
+
             <!-- left sidebar (client menu) -->
-            <div class="lg:col-span-4 xl:col-span-4">
-                <div class="dashboard-card p-6">
-                    <div class="flex flex-col space-y-1">
+            <div id="sidebar-wrap" class="lg:col-span-4 xl:col-span-4 mobile-sidebar">
+                <div class="dashboard-card p-4 sm:p-6 relative">
+                    <button id="close-sidebar" class="close-sidebar-btn text-neutral-dark/50 hover:text-primary dark:text-gray-400" aria-label="Close Menu">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <div class="flex flex-col space-y-1 mt-8 lg:mt-0">
                         <div class="sidebar-item active" data-section="profile"><i class="fas fa-user-circle w-7"></i><span class="ml-4">Profile</span></div>
                         <div class="sidebar-item" data-section="orders"><i class="fas fa-calendar-alt w-7"></i><span class="ml-4">Event history</span></div>
                         <div class="sidebar-item" data-section="saved"><i class="fas fa-heart w-7"></i><span class="ml-4">Saved events</span></div>
@@ -471,11 +586,17 @@
                         <button class="flex-1 bg-primary/10 text-primary dark:text-primary-light py-3 px-4 rounded-xl font-semibold text-sm hover:bg-primary hover:text-white transition"><i class="fas fa-headset mr-2"></i>support</button>
                         <button class="flex-1 bg-primary/10 text-primary dark:text-primary-light py-3 px-4 rounded-xl font-semibold text-sm hover:bg-primary hover:text-white transition"><i class="fas fa-gift mr-2"></i>refer</button>
                     </div>
+                    <!-- mobile logout button -->
+                    <div class="mt-4 lg:hidden">
+                        <button class="w-full py-2.5 px-4 bg-red-50 text-red-600 dark:bg-red-900/20 dark:text-red-400 font-semibold rounded-xl flex items-center justify-center gap-2 hover:bg-red-100 transition" onclick="window.location.href='login.html'">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </button>
+                    </div>
                 </div>
             </div>
 
             <!-- right content -->
-            <div class="lg:col-span-8 xl:col-span-8">
+            <div class="lg:col-span-8 xl:col-span-8 min-w-0">
                 
                 <!-- 1. PROFILE -->
                 <div id="profile-section" class="dashboard-section block">
@@ -622,8 +743,8 @@
         (function() {
             // theme
             const themeToggle = document.getElementById('theme-toggle');
-            const themeIcon = themeToggle?.querySelector('.fa-moon');
-            const themeIconSun = themeToggle?.querySelector('.fa-sun');
+            const themeIcon = themeToggle?.querySelector('.fa-sun');
+            const themeIconSun = themeToggle?.querySelector('.fa-moon');
             function toggleTheme() {
                 document.documentElement.classList.toggle('dark');
                 const isDark = document.documentElement.classList.contains('dark');
@@ -696,8 +817,34 @@
                     if (section === 'saved' && sections.saved) sections.saved.classList.remove('hidden');
                     if (section === 'messages' && sections.messages) sections.messages.classList.remove('hidden');
                     if (section === 'settings' && sections.settings) sections.settings.classList.remove('hidden');
+                    
+                    if (window.innerWidth < 1024) {
+                        if (sidebarWrap) sidebarWrap.classList.remove('open');
+                        if (mobileOverlay) mobileOverlay.classList.remove('open');
+                        document.body.style.overflow = '';
+                    }
                 });
             });
+
+            // Mobile Sidebar Toggle
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const closeSidebarBtn = document.getElementById('close-sidebar');
+            const sidebarWrap = document.getElementById('sidebar-wrap');
+            const mobileOverlay = document.getElementById('mobile-overlay');
+
+            function toggleSidebar() {
+                if (sidebarWrap) sidebarWrap.classList.toggle('open');
+                if (mobileOverlay) mobileOverlay.classList.toggle('open');
+                if (sidebarWrap && sidebarWrap.classList.contains('open')) {
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    document.body.style.overflow = '';
+                }
+            }
+
+            if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', toggleSidebar);
+            if (closeSidebarBtn) closeSidebarBtn.addEventListener('click', toggleSidebar);
+            if (mobileOverlay) mobileOverlay.addEventListener('click', toggleSidebar);
 
             // save demo
             document.querySelectorAll('.save-btn').forEach(b => b.addEventListener('click', ()=>alert('saved (demo)')));

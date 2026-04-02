@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" dir="ltr" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+        .fas.hidden { display: none !important; }
         /* Base styles */
         body {
             background-color: #FFFFFF;
@@ -540,7 +541,7 @@
                         </div>
                     </div>
                     <div class="flex gap-2 ml-4 desktop-toggle-group">
-                        <button id="theme-toggle" class="toggle-btn" title="Toggle theme"><i class="fas fa-moon"></i><i class="fas fa-sun hidden"></i></button>
+                        <button id="theme-toggle" class="toggle-btn" title="Toggle theme"><i class="fas fa-sun"></i><i class="fas fa-moon hidden"></i></button>
                         <button id="rtl-toggle" class="toggle-btn" title="Toggle RTL/LTR">⇄</button>
                     </div>
                 </div>
@@ -557,7 +558,7 @@
     <div id="mobile-menu" class="mobile-menu xl:hidden fixed top-20 left-0 right-0 z-40 bg-white dark:bg-dark-card shadow-lg">
         <div class="container mx-auto px-6">
             <div class="mobile-dropdown">
-                <button class="mobile-dropdown-btn flex items-center justify-between w-full mobile-menu-item">
+                <button class="mobile-dropdown-btn flex items-center justify-between w-full mobile-menu-item text-left">
                     <span>Home</span>
                     <i class="fas fa-chevron-down text-xs transition-transform"></i>
                 </button>
@@ -572,7 +573,7 @@
             <a href="book.html" class="mobile-menu-item">Book Now</a>
             <a href="contact.html" class="mobile-menu-item">Contact</a>
             <div class="mobile-dropdown">
-                <button class="mobile-dropdown-btn flex items-center justify-between w-full mobile-menu-item">
+                <button class="mobile-dropdown-btn flex items-center justify-between w-full mobile-menu-item text-left">
                     <span>Dashboard</span>
                     <i class="fas fa-chevron-down text-xs transition-transform"></i>
                 </button>
@@ -587,7 +588,7 @@
                 <a href="signup.html" class="mobile-auth-btn signup flex-1 text-center">Sign Up</a>
             </div>
             <div class="flex justify-center gap-3 p-6 border-t border-gray-200 dark:border-gray-800">
-                <button id="theme-toggle-mobile" class="toggle-btn"><i class="fas fa-moon"></i><i class="fas fa-sun hidden"></i></button>
+                <button id="theme-toggle-mobile" class="toggle-btn"><i class="fas fa-sun"></i><i class="fas fa-moon hidden"></i></button>
                 <button id="rtl-toggle-mobile" class="toggle-btn">⇄</button>
             </div>
         </div>
@@ -917,11 +918,11 @@
         document.addEventListener('DOMContentLoaded', function() {
             // Theme Toggle
             const themeToggle = document.getElementById('theme-toggle');
-            const themeIcon = themeToggle?.querySelector('.fa-moon');
-            const themeIconSun = themeToggle?.querySelector('.fa-sun');
+            const themeIcon = themeToggle?.querySelector('.fa-sun');
+            const themeIconSun = themeToggle?.querySelector('.fa-moon');
             const mobileThemeToggle = document.getElementById('theme-toggle-mobile');
-            const mobileThemeIcon = mobileThemeToggle?.querySelector('.fa-moon');
-            const mobileThemeIconSun = mobileThemeToggle?.querySelector('.fa-sun');
+            const mobileThemeIcon = mobileThemeToggle?.querySelector('.fa-sun');
+            const mobileThemeIconSun = mobileThemeToggle?.querySelector('.fa-moon');
             
             function toggleTheme() {
                 document.documentElement.classList.toggle('dark');

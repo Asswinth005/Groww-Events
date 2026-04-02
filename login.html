@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" dir="ltr" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
@@ -13,6 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800;900&family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        .fas.hidden { display: none !important; }
         /* ----- fullscreen, no scroll, with new light background (#f8f4e9) ----- */
         html, body {
             height: 100%;
@@ -317,8 +318,8 @@
     <!-- top‑right toggles (unchanged) -->
     <div class="theme-toggle-wrapper">
         <button id="theme-toggle" class="toggle-btn" title="Dark / Light">
-            <i class="fas fa-moon"></i>
-            <i class="fas fa-sun hidden"></i>
+            <i class="fas fa-sun"></i>
+            <i class="fas fa-moon hidden"></i>
         </button>
         <button id="rtl-toggle" class="toggle-btn" title="RTL / LTR">⇄</button>
     </div>
@@ -435,8 +436,8 @@
         (function() {
             // ---------- THEME ----------
             const themeToggle = document.getElementById('theme-toggle');
-            const themeIconMoon = themeToggle?.querySelector('.fa-moon');
-            const themeIconSun = themeToggle?.querySelector('.fa-sun');
+            const themeIconMoon = themeToggle?.querySelector('.fa-sun');
+            const themeIconSun = themeToggle?.querySelector('.fa-moon');
 
             function setTheme(isDark) {
                 if (isDark) {
